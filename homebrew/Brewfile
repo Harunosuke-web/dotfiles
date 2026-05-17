@@ -1,0 +1,127 @@
+tap "koekeishiya/formulae"
+cask_args appdir: "/Applications"
+
+### --- for GNU utils --- ###
+brew "coreutils"  # GNU core utilities (ls, cp, mv, etc.)
+brew "findutils"  # GNU find, locate, updatedb, xargs
+brew "gawk"  # GNU awk text processing tool
+brew "gnu-sed"  # GNU stream editor
+brew "gnupg"  # GNU Pretty Good Privacy (PGP) implementation
+brew "grep"  # GNU grep for pattern matching
+brew "stow"  # Symlink farm manager for dotfiles
+
+# --------------------------------------------------
+
+brew "mise"  # Version manager for multiple languages (replaces asdf)
+brew "awk"  # Pattern scanning and processing language
+brew "bash"  # Bourne Again Shell
+brew "curl"  # Command line tool for transferring data with URLs
+brew "eza"  # Modern replacement for ls with colors and icons
+brew "fzf"  # Fuzzy finder for command line
+brew "gh"  # GitHub command line tool
+brew "git"  # Distributed version control system
+brew "git-delta"  # Syntax-highlighting pager for git and diff output
+brew "navi"  # Interactive cheatsheet tool for command line
+brew "ripgrep"  # Fast text search tool (rg)
+
+# --------------------------------------------------
+
+brew "bat"  # Cat clone with syntax highlighting
+brew "cmake"  # Cross-platform build system
+brew "dylibbundler"  # Utility to bundle dependencies into macOS apps
+brew "fd"  # Simple, fast alternative to find
+brew "gemini-cli"  # Command line client for Gemini protocol
+brew "ghq"  # Git repository manager for organizing cloned repos
+brew "git-lfs"  # Git extension for versioning large files
+# brew "go"  # Go programming language (managed by mise)
+brew "hub"  # GitHub wrapper for git command
+brew "jq"  # JSON processor and query tool
+brew "lazygit"  # Terminal UI for git commands
+brew "lf"  # Terminal file manager
+brew "libssh2"  # C library implementing SSH2 protocol
+brew "mas"  # Mac App Store command line interface
+brew "neovim"  # Vim-based text editor
+# brew "node"  # Node.js JavaScript runtime (managed by mise)
+brew "openssl@3"  # Cryptography and SSL/TLS toolkit
+# brew "python@3.13"  # Python programming language version 3.13 (managed by mise)
+brew "starship"  # Cross-shell customizable prompt
+brew "tesseract"  # OCR (Optical Character Recognition) engine
+brew "tesseract-lang"  # Language packages for tesseract OCR
+brew "tmux"  # Terminal multiplexer
+brew "trash", link: true  # Move files to trash from command line
+brew "wget"  # Internet file retriever
+brew "zsh"  # Z shell with extended features
+
+# C/C++ Development Tools
+brew "cmake"  # Cross-platform build system
+brew "llvm"   # LLVM compiler infrastructure (newer clang)
+brew "gdb"    # GNU debugger
+
+### --- Window Manager --- ###
+brew "koekeishiya/formulae/skhd"  # Hotkey daemon for macOS
+brew "koekeishiya/formulae/yabai"  # Tiling window manager for macOS
+
+# --------------------------------------------------
+
+cask "1password"  # Password manager
+cask "1password-cli"  # 1Password command line tool
+cask "alacritty"  # GPU-accelerated terminal emulator
+cask "alfred"  # Productivity app and launcher
+cask "alt-tab"  # Windows-style Alt-Tab for macOS
+cask "appcleaner"  # Application uninstaller
+cask "bettertouchtool"  # Touch Bar and trackpad customization
+cask "brave-browser"  # Privacy-focused web browser
+cask "cleanshot"  # Screenshot and screen recording tool
+# cask "craft"  # Note-taking and writing app
+cask "discord"  # Voice and text communication for gaming
+cask "dropbox"  # Cloud storage and file synchronization
+cask "font-hack-nerd-font"  # Patched font with developer icons
+cask "font-sauce-code-pro-nerd-font"  # Patched coding font with icons
+cask "google-chrome"  # Web browser by Google
+cask "google-drive"  # Google's cloud storage client
+cask "google-japanese-ime"  # Japanese input method editor
+# cask "iterm2"  # Terminal emulator for macOS
+cask "keyboardcleantool"  # Disable keyboard for cleaning
+cask "notion"  # All-in-one workspace for notes and collaboration
+# cask "notion-calendar"  # Calendar app by Notion
+cask "obsidian"  # Knowledge management and note-taking
+cask "raindropio"  # Bookmark manager and web clipper
+cask "raycast"  # Productivity launcher and tool
+# cask "simplenote"  # Simple note-taking app
+cask "visual-studio-code"  # Code editor by Microsoft
+
+### --- Apps from AppStore --- ###
+mas "Amphetamine", id: 937984704  # Keep Mac awake utility
+mas "Dropover", id: 1355679052  # Drag and drop shelf utility
+# mas "HazeOver", id: 430798174  # Distraction dimmer for focus
+# mas "Kindle", id: 302584613  # Amazon's e-book reader
+# mas "LINE", id: 539883307  # Messaging app
+# mas "Magnet", id: 441258766  # Window management tool
+# mas "NotePlan", id: 1505432629  # Note-taking and task management
+mas "ReminderBridge", id: 6745492181  # Reminder synchronization tool
+mas "RunCat", id: 1429033973  # CPU usage monitor in menu bar
+# mas "Xcode", id: 497799835  # Apple's IDE for iOS/macOS development
+# mas "Yoink", id: 457622435  # Drag and drop shelf for files
+
+### --- VSCode Extensions --- ###
+vscode "be5invis.toml"  # TOML language support
+vscode "davidanson.vscode-markdownlint"  # Markdown linting and style checking
+vscode "dbaeumer.vscode-eslint"  # JavaScript/TypeScript linter
+vscode "dsznajder.es7-react-js-snippets"  # React JavaScript snippets
+vscode "editorconfig.editorconfig"  # EditorConfig support
+vscode "esbenp.prettier-vscode"  # Code formatter
+vscode "extr0py.vscode-relative-line-numbers"  # Relative line numbers
+vscode "foxundermoon.shell-format"  # Shell script formatter
+vscode "github.copilot"  # AI pair programmer
+vscode "github.copilot-chat"  # AI chat assistant in VS Code
+vscode "github.vscode-pull-request-github"  # GitHub integration for pull requests
+vscode "golang.go"  # Go language support
+vscode "humao.rest-client"  # REST API testing tool
+vscode "johnnymorganz.stylua"  # Lua code formatter
+vscode "ms-vscode.cpptools"  # C/C++ language support
+vscode "naumovs.color-highlight"  # Color value highlighter
+vscode "redhat.vscode-yaml"  # YAML language support
+vscode "visualstudioexptteam.intellicode-api-usage-examples"  # AI-assisted API usage examples
+vscode "visualstudioexptteam.vscodeintellicode"  # AI-assisted IntelliSense
+vscode "vscodevim.vim"  # Vim key bindings for VS Code
+vscode "xadillax.viml"  # Vim script language support

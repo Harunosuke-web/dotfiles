@@ -1,0 +1,72 @@
+[user]
+    name = Harunosuke
+	email = harunosuke.web@gmail.com
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIN6gwrzWpFYNGky0Kd7cV8pp3JFnV4diofX5rNbaPbAa
+
+[gpg]
+    # program = gpg
+    format = ssh
+
+[gpg "ssh"]
+    program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+
+[core]
+    editor = nvim
+
+[init]
+    defaultBranch = main
+
+[status]
+    showUntrackedFiles = all
+
+[commit]
+    verbose = true
+    gpgsign = true
+    # gpgsign = false # overwritten in conf.d/local.conf
+    # template = /Users/papicom/.stCommitMsg
+
+[diff]
+    algorithm = histogram
+
+[tag]
+    # forceSignAnnotated = false # overwritten in conf.d/local.conf
+
+[merge]
+    ff = false
+    conflictStyle = diff3
+
+[fetch]
+    prune = true
+
+[pull]
+     rebase = false
+
+# [push]
+#     default = simple
+#     followTags = true
+
+[advice]
+    # addEmptyPathspec = false
+
+[include]
+    path = conf.d/alias.conf
+    # path = conf.d/user.conf
+    path = conf.d/delta.conf
+    # path = conf.d/forgit.conf
+    path = conf.d/ghq.conf
+    # path = conf.d/gist.conf
+    # path = conf.d/github.conf
+    # path = conf.d/local.conf
+
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
+# [difftool "sourcetree"]
+# 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+# 	path =
+# [mergetool "sourcetree"]
+# 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+# 	trustExitCode = true

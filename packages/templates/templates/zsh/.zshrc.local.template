@@ -1,0 +1,26 @@
+# Local configuration template
+# This file contains local settings that should not be committed to git
+#
+# Run scripts/setup-local-config.sh for interactive setup
+
+# Primary email address (required)
+# export EMAIL="your-primary@email.com"
+
+# Git configuration (uses primary email by default)
+# export GIT_AUTHOR_EMAIL="$EMAIL"
+# export GIT_COMMITTER_EMAIL="$EMAIL"
+
+# Service-specific emails (only if different from primary)
+# export GOOGLE_DRIVE_EMAIL="your-google-drive@email.com"
+# export GITHUB_EMAIL="your-github@email.com"
+
+# Other local environment variables
+# export CUSTOM_VAR="value"
+
+# Local aliases
+# alias myalias="command"
+
+# Local functions
+# function myfunction() {
+#     # your code here
+# }

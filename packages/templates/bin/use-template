@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PACKAGE_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+TEMPLATES_DIR="$PACKAGE_ROOT/templates"
+
+# Template script - no external dependencies needed
+
+usage() {
+    cat << EOF
+Usage: use-template [OPTIONS] TEMPLATE_NAME
+
+Apply a template to the current directory.
+
+TEMPLATE_NAME:
+$(list_templates)
+
+OPTIONS:
+    -h, --help      Show this help message
+    -l, --list      List available templates
+    -d, --dry-run   Show what files would be copied without actually copying
+
+EXAMPLES:
+    use-template editorconfig       # Apply editorconfig template
+    use-template -l                 # List available templates
+    use-template --dry-run editorconfig  # Preview what would be copied
+
+EOF
+}
+
+list_templates() {
+    if [[ -d "$TEMPLATES_DIR" ]]; then
+        for template_dir in "$TEMPLATES_DIR"/*; do
+            if [[ -d "$template_dir" ]]; then
+                template_name="$(basename "$template_dir")"
+                echo "    $template_name"
+            fi
+        done
+    else
+        echo "    No templates found"
+    fi
+}
+
+apply_template() {
+    local template_name="$1"
+    local dry_run="${2:-false}"
+    local template_path="$TEMPLATES_DIR/$template_name"
+
+    if [[ ! -d "$template_path" ]]; then
+        echo "Error: Template '$template_name' not found" >&2
+        echo "Available templates:" >&2
+        list_templates >&2
+        exit 1
+    fi
+
+    if [[ "$dry_run" == "true" ]]; then
+        echo "Files that would be copied from template '$template_name':"
+        find "$template_path" -type f -printf "  %P\n" 2>/dev/null || \
+        find "$template_path" -type f | sed "s|^$template_path/||" | sed 's/^/  /'
+        return 0
+    fi
+
+    echo "Applying template: $template_name"
+    
+    # Copy regular files
+    if find "$template_path" -maxdepth 1 -type f -print0 2>/dev/null | grep -q .; then
+        find "$template_path" -maxdepth 1 -type f -exec cp {} . \;
+    fi
+    
+    # Copy dotfiles (files starting with .)
+    if find "$template_path" -maxdepth 1 -name ".*" -type f -print0 2>/dev/null | grep -q .; then
+        find "$template_path" -maxdepth 1 -name ".*" -type f -exec cp {} . \;
+    fi
+
+    echo "Template '$template_name' applied successfully"
+}
+
+main() {
+    local dry_run=false
+    local template_name=""
+
+    # Parse arguments
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            -h|--help)
+                usage
+                exit 0
+                ;;
+            -l|--list)
+                echo "Available templates:"
+                list_templates
+                exit 0
+                ;;
+            -d|--dry-run)
+                dry_run=true
+                shift
+                ;;
+            -*)
+                echo "Error: Unknown option $1" >&2
+                usage >&2
+                exit 1
+                ;;
+            *)
+                template_name="$1"
+                shift
+                ;;
+        esac
+    done
+
+    # Validate arguments
+    if [[ -z "$template_name" ]]; then
+        echo "Error: Template name is required" >&2
+        usage >&2
+        exit 1
+    fi
+
+    apply_template "$template_name" "$dry_run"
+}
+
+main "$@"

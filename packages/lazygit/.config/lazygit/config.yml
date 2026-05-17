@@ -1,0 +1,66 @@
+disableStartupPopups: true
+quitOnTopLevelReturn: true
+promptToReturnFromSubprocess: false
+notARepository: skip
+git:
+  autoFetch: false
+  disableForcePushing: true
+  parseEmoji: true
+  pagers:
+    - colorArg: always
+      pager: delta --paging=never
+  log:
+    showGraph: always
+gui:
+  showRandomTip: false
+  showIcons: false
+  theme:
+    activeBorderColor:
+      - "#6DB3D4" # Muted soft blue
+    inactiveBorderColor:
+      - "#6A7580" # Muted gray
+    optionsTextColor:
+      - "#8FA8B2" # Soft blue-gray
+    selectedLineBgColor:
+      - "#1A1F24" # Very subtle dark background
+    selectedRangeBgColor:
+      - "#1A1F24" # Same as selected line
+    cherryPickedCommitBgColor:
+      - "#181C21" # Minimal background
+    cherryPickedCommitFgColor:
+      - "#7A9FC7" # Muted blue
+    unstagedChangesColor:
+      - "#C97064" # Muted red
+    # Soft, muted colors for low contrast
+    defaultFgColor:
+      - "#B8BCC8" # Soft light gray
+    searchingActiveBorderColor:
+      - "#C6A86D" # Muted yellow
+    # Very soft diff colors
+    addedBgColor:
+      - default # No background color
+    addedFgColor:
+      - "#7A9A7A" # Muted green
+    deletedBgColor:
+      - default # No background color
+    deletedFgColor:
+      - "#C97064" # Muted red
+    modifiedBgColor:
+      - default # No background color
+    modifiedFgColor:
+      - "#C6A86D" # Muted yellow
+os:
+  openCommand: "code --goto -- {{filename}}:{{line}}"
+  editCommand: "nvim"
+  editCommandTemplate: "{{editor}} +{{line}} -- {{filename}}"
+
+# keybinding:
+#   commits:
+#     viewResetOptions: G
+
+# customCommands:
+#   - key: C
+#     command: git cz
+#     context: files
+#     loadingText: opening commitizen commit tool
+#     subprocess: true
