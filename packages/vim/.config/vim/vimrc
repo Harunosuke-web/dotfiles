@@ -1,0 +1,435 @@
+filetype plugin on
+
+" -----------------------------------------------------------------------------
+" Basic Settings
+"   Research any of these by running :help <setting>
+" -----------------------------------------------------------------------------
+let mapleader = " "
+let maplocalleader = " "
+
+
+""" ----- cursor style -----
+" Use a line cursor within insert mode and a block cursor everywhere else.
+"
+" Using iTerm2? Go-to preferences / profile / colors and disable the smart bar
+" cursor color. Then pick a cursor and highlight color that matches your theme.
+" That will ensure your cursor is always visible within insert mode.
+"
+" Reference chart of values:
+"   Ps = 0  -> blinking block.
+"   Ps = 1  -> blinking block (default).
+"   Ps = 2  -> steady block.
+"   Ps = 3  -> blinking underline.
+"   Ps = 4  -> steady underline.
+"   Ps = 5  -> blinking bar (xterm).
+"   Ps = 6  -> steady bar (xterm).
+let &t_ti.= "\e[2 q" " Vim 起動時に非点滅のブロックタイプのカーソル
+let &t_SI = "\e[6 q" " 挿入モード時に非点滅の縦棒タイプのカーソル
+let &t_EI = "\e[2 q" " ノーマルモード時に非点滅のブロックタイプのカーソル
+let &t_SR .= "\e[4 q" " 置換モード時に非点滅の下線タイプのカーソル
+let &t_te.="\e[0 q" " vim 終了時にカーソルを mintty のデフォルトに設定
+
+
+""" ----- cursor line  -----
+" Only show the cursor line in the active buffer.
+augroup CursorLine
+    au!
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
+
+
+""" ----- options -----
+set nocompatible " Viとの互換性を無効にする
+
+if &t_Co > 2 || has("gui_running")
+    syntax enable
+    set hlsearch
+endif
+
+set fenc=utf-8
+set background=dark
+set virtualedit=block
+set textwidth=0 " 一行に長い文章を書いていても自動折り返しをしない
+set display=lastline
+set noswapfile
+set hidden
+set autoread
+set showcmd
+set showmatch
+set shellslash
+set clipboard+=unnamedplus,unnamed
+" --- Indentation
+set printoptions=number:y " 新しい行のインデントを現在行と同じにする
+set autoindent " 新しい行を作ったときに高度な自動インデントを行う
+set smartindent " 行頭の余白内でTabを打ち込むと'shiftwidth'の数だけインデントする
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set shiftround
+set smarttab " カーソルを行頭・行末でとまらないようにする
+set list
+" set listchars=tab:>-,trail:-,extends:>,precedes:<,nbsp:%
+set listchars=tab:▸\
+" --- Views
+set title
+set number
+set relativenumber
+set ruler
+set cursorline
+set showmatch
+set noshowmode
+set laststatus=2
+set showtabline=2
+set ambiwidth=double
+" --- Controls
+set mouse=a
+set whichwrap=b,s,h,l,<,>,[,]
+" --- Search
+set incsearch
+set smartcase
+set ignorecase
+" --- Split
+set splitbelow
+set splitright
+" --- Backspace
+set backspace=indent,eol,start
+" --- Menu
+set wildmenu
+set wildmode=list:longest
+" --- Completion
+set completeopt=menuone,noinsert,noselect
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+
+
+""" ----- Backup -----
+" --- viminfo (default dir=$HOME/.viminfo)
+set viminfo+=n~/.local/state/vim/viminfo  | call mkdir($XDG_STATE_HOME . '/vim', 'p')
+
+" --- backup (defaut: set nobackup)
+set backupdir=$XDG_STATE_HOME/vim/backup  | call mkdir(&backupdir, 'p')
+set backup
+set backupext=.back
+
+" --- swapfile (default: set swapfile)
+" set directory=$XDG_STATE_HOME/vim/swap    | call mkdir(&directory, 'p')
+set noswapfile
+
+" --- undofile (default: set noundofile, default dir=.)
+set undodir=$XDG_STATE_HOME/vim/undo      | call mkdir(&undodir,   'p')
+set undofile
+
+
+""" ----- Status line -----
+" function! s:statusline_expr()
+"     let mod = "%{&modified ? '[+] ' : !&modifiable ? '[x] ' : ''}"
+"     let ro  = "%{&readonly ? '[RO] ' : ''}"
+"     let ft  = "%{len(&filetype) ? '['.&filetype.'] ' : ''}"
+"     let fug = "%{exists('g:loaded_fugitive') ? fugitive#statusline() : ''}"
+"     let sep = ' %= '
+"     let pos = ' %-12(%l : %c%V%) '
+"     let pct = ' %P'
+
+"     return ' [%n] %f %<'.mod.ro.ft.fug.sep.pos.'%*'.pct
+" endfunction
+
+" let &statusline = s:statusline_expr()
+
+
+""" ----- Keymaps -----
+nnoremap ;      :
+nnoremap <silent>j       gj
+nnoremap <silent>k       gk
+nnoremap <silent><Down>  gj
+nnoremap <silent><Up>    gk
+nnoremap <silent>sh      <C-w>h
+nnoremap <silent>sj      <C-w>j
+nnoremap <silent>sk      <C-w>k
+nnoremap <silent>sl      <C-w>l
+nnoremap <silent>sH      <C-w>H
+nnoremap <silent>sJ      <C-w>J
+nnoremap <silent>sK      <C-w>K
+nnoremap <silent>sL      <C-w>L
+nnoremap <silent><C-a>   ^
+nnoremap <silent><C-e>   $
+nnoremap <silent>+       <C-a>
+nnoremap <silent>_       <C-x>
+nnoremap <silent><C-\>   :vsplit<CR>
+nnoremap <silent><C-_>   :split<CR>
+nnoremap <silent><C-h>   :bprev<CR>
+nnoremap <silent><C-l>   :bnext<CR>
+nnoremap <silent><C-w>   :bdelete<CR>
+nnoremap <leader>q       :q<CR>
+nnoremap <silent><S-u>   <C-r>
+nnoremap <ESC><ESC>      :nohlsearch<CR>
+inoremap <silent>jj      <ESC>
+inoremap <silent><Down>  <C-\><C-o>gj
+inoremap <silent><Up>    <C-\><C-o>gk
+inoremap <silent><S-Tab> <C-\><C-o><<
+inoremap <silent><C-a>   <C-o>I
+inoremap <silent><C-e>   <End>
+vnoremap <silent><C-a>   ^
+vnoremap <silent><C-e>   $
+
+augroup MyKeyMaps
+    autocmd!
+    autocmd FileType html inoremap <buffer></ </<C-x><C-o>
+augroup END
+
+
+""" ----- terminal -----
+" command! -nargs=* T botright term <args>
+
+
+" -----------------------------------------------------------------------------
+" Basic autocommands
+" -----------------------------------------------------------------------------
+
+
+" -----------------------------------------------------------------------------
+" Package Manager
+" -----------------------------------------------------------------------------
+let g:Packages = {}
+let g:PackageDir = $HOME . '/.vim/pack/plugins'
+
+function! Package(repo, ...)
+    let arg = get(a:, 1, {})
+    let base = has_key(arg, 'base') ? arg.base : 'start'
+
+    let url = 'https://github.com/' . a:repo
+    let path = g:PackageDir . '/' . base . '/' . substitute(a:repo, '/', '--', 'g')
+
+    let g:Packages[a:repo] = {
+    \   'path': path,
+    \   'url': url,
+    \   'arg': arg,
+    \ }
+
+    if isdirectory(path)
+        return
+    endif
+
+    echo 'installing ' . a:repo
+    echo system('git clone ' . shellescape(url) . ' ' . shellescape(path))
+
+    if has_key(arg, 'build')
+        echo system('cd ' . shellescape(path) . ';' . arg.build)
+    endif
+endfunction
+
+function! PackageUpdate()
+    for repo in keys(g:Packages)
+        let path = g:Packages[repo].path
+
+        echo 'update ' . repo
+        echo system('git -C ' . shellescape(path) . ' pull')
+    endfor
+endfunction
+
+command! PackageUpdate call PackageUpdate()
+
+
+" -----------------------------------------------------------------------------
+" Install/Setup Plugins
+" -----------------------------------------------------------------------------
+""" ----- Colorscheme -----
+call Package('vv9k/vim-github-dark')
+call Package('tomasiser/vim-code-dark')
+
+colorscheme ghdark
+
+
+""" ----- Status Line -----
+call Package('itchyny/lightline.vim')
+call Package('mengelbrecht/lightline-bufferline')
+call Package('itchyny/vim-gitbranch')
+
+let g:lightline = {
+\   'colorscheme': 'one',
+\   'active': {
+\       'left': [ [ 'mode', 'paste' ], [ 'gitbranch' ,'readonly', 'filename' ] ]
+\   },
+\   'tabline': {
+\       'left': [ ['buffers'] ],
+\       'right': [ [''] ]
+\   },
+\   'component_expand': {
+\       'buffers': 'lightline#bufferline#buffers'
+\   },
+\   'component_type': {
+\       'buffers': 'tabsel'
+\   },
+\   'component_function': {
+\       'gitbranch': 'gitbranch#name',
+\       'filename': 'LightlineFilename',
+\   },
+\ }
+
+function! LightlineFilename()
+    let filename = expand('%:p') !=# '' ? expand('%:p') : '[No Name]'
+    let modified = &modified ? ' [+]' : ''
+    return filename . modified
+endfunction
+
+let g:lightline_buffer_enable_devicons = 1
+let g:lightline_buffer_show_bufnr = 1
+" let g:lightline_buffer_fname_mod = '%:t'
+let g:lightline_buffer_excludes = ['vimfiler']
+let g:lightline_buffer_maxflen = 30
+let g:lightline_buffer_maxfextlen = 3
+let g:lightline_buffer_minflen = 16
+let g:lightline_buffer_minfextlen = 3
+let g:lightline_buffer_reservelen = 20
+
+
+""" ----- Filer -----
+" --- lf.vim
+call Package('ptzz/lf.vim')
+call Package('voldikss/vim-floaterm') " Dependencies
+
+let g:lf_map_keys = 0
+let g:lf_width = 1.0
+let g:lf_height = 1.0
+map <C-t> :Lf<CR>
+map <S-t> :LfWorkingDirectory<CR>
+
+" --- nerdtree
+call Package('preservim/nerdtree')
+call Package('Xuyuanp/nerdtree-git-plugin')
+
+nnoremap <leader>e :NERDTreeToggle<CR>
+
+" 最後に残ったウィンドウがNERDTreeのみのときはvimを閉じる
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+let g:NERDTreeDirArrows=0
+let g:NERDTreeMouseMode=0
+
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+    exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+    exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+call NERDTreeHighlightFile('md', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('yaml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 'magenta', 'none', 'magenta', '#151515')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+
+let g:NERDTreeGitStatusIndicatorMapCustom = {
+    \ "Modified"  : "*",
+    \ "Staged"    : "+",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "=",
+    \ "Deleted"   : "-",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
+
+" -----------------------------------------------------------------------------
+" --- editorconfig
+call Package('editorconfig/editorconfig-vim')
+
+" --- auto-pairs
+call Package('jiangmiao/auto-pairs')
+
+" --- vim-rainbow
+call Package('frazrepo/vim-rainbow')
+
+let g:rainbow_active = 1
+let g:rainbow_ctermfgs = ['green', 'yellow', 'blue', 'red', 'magenta']
+
+" --- vim-surround
+call Package('tpope/vim-surround')
+
+" --- vim-expand-region
+call Package('terryma/vim-expand-region')
+
+vmap v <Plug>(expand_region_expand)
+vmap V <Plug>(expand_region_shrink)
+
+" --- commentary
+call Package('tpope/vim-commentary')
+
+" --- vim-highlightedyank
+call Package('machakann/vim-highlightedyank')
+
+" --- asynchronous lint engine
+call Package('dense-analysis/ale')
+
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines'],
+\   'c': ['clang-format'],
+\   'cpp': ['clang-format'],
+\ }
+
+" --- fzf
+call Package('junegunn/fzf', { 'build': 'bash install --bin' })
+call Package('junegunn/fzf.vim')
+
+if exists('$TMUX')
+    let g:fzf_layout = { 'tmux': '-p80%' }
+else
+    let g:fzf_layout = { 'down': '100%' }
+endif
+
+" Customize fzf colors to match your color scheme.
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-b': 'split',
+  \ 'ctrl-v': 'vsplit',
+  \ 'ctrl-y': {lines -> setreg('*', join(lines, "\n"))}}
+
+nnoremap <leader>/  :BLines<CR>
+nnoremap <leader>sf :Files<CR>
+
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+" --- vim-gh-line
+call Package('ruanyl/vim-gh-line')
+"   Default key mapping for a blob view: <leader>gh
+"   Default key mapping for a blame view: <leader>gb
+"   Default key mapping for repo view: <leader>go
+
+" --- open-browser
+call Package('tyru/open-browser.vim')
+" カーソル下のURLを「gx」で開く
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nnoremap gx <Plug>(openbrowser-smart-search)
+vnoremap gx <Plug>(openbrowser-smart-search)
+
+" --- undo tree
+call Package('mbbill/undotree')
+
+nnoremap <Space>u :UndotreeToggle<CR>
+let g:undotree_SetFocusWhenToggle = 1
+let g:undotree_WindowLayout = 'topleft'
+let g:undotree_SplitWidth = 35
+let g:undotree_diffAutoOpen = 1
+let g:undotree_diffpanelHeight = 25
+let g:undotree_RelativeTimestamp = 1
+let g:undotree_TreeNodeShape = '*'
+let g:undotree_HighlightChangedText = 1
+let g:undotree_HighlightSyntax = "UnderLined"

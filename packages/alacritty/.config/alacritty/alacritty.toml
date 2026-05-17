@@ -1,0 +1,118 @@
+# [general]
+# import = ["~/.config/alacritty/thems/thems/dracula.toml"]
+
+[colors.bright]
+black = "#282828"
+blue = "#c9a8fa"
+cyan = "#99ecfd"
+green = "#00ff00"
+magenta = "#ff92d0"
+red = "#EE5396"
+white = "#eceff4"
+yellow = "#f3f89d"
+
+[colors.cursor]
+cursor = "#ECEFF4"
+text = "#3B4252"
+
+[colors.normal]
+black = "#141313"
+blue = "#c9a8fa"
+cyan = "#99ecfd"
+green = "#00ff00"
+magenta = "#ff92d0"
+red = "#EE5396"
+white = "#e5e9f0"
+yellow = "#f3f89d"
+
+[colors.primary]
+background = "#00001F"
+foreground = "#abb2bf"
+
+[colors.selection]
+background = "0x414d58"
+text = "0xf8f8f2"
+
+[colors.vi_mode_cursor]
+cursor = "#ECEFF4"
+text = "#3B4252"
+
+[cursor]
+vi_mode_style = "Block"
+
+[cursor.style]
+blinking = "Never"
+shape = "Beam"
+
+[font]
+size = 15.0
+
+[font.bold]
+family = "Hack Nerd Font"
+style = "Regular"
+
+[font.bold_italic]
+family = "Ricty Nerd Font"
+style = "Bold Italic"
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[font.italic]
+family = "Ricty Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "Hack Nerd Font"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 5
+
+[keyboard]
+bindings = [
+  { key = "Period", mods = "Control", mode = "~Search", action = "ToggleViMode" },
+  { key = "W", mods = "Command", action = "None" },
+  { key = "Return", mods = "Command|Shift", action = "SpawnNewInstance" },
+]
+
+[scrolling]
+history = 10000
+
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+# [terminal.shell]
+# args = ["new-session", "-D", "-c", "#{pane_current_path}"]
+# program = "/opt/homebrew/bin/tmux"
+
+[window]
+decorations = "none"
+dynamic_padding = true
+dynamic_title = true
+opacity = 1.0
+option_as_alt = "OnlyLeft"
+startup_mode = "Maximized"
+# Reduce flickering
+resize_increments = true
+
+[window.padding]
+x = 6
+y = 6
+
+# Removed invalid renderer section
+
+[debug]
+# Reduce log output that might cause flickering
+log_level = "Error"
+
+[terminal]
+# Reduce terminal flickering
+osc52 = "CopyPaste"
+
+[env]
+# Set terminal capabilities to reduce flickering
+TERM = "alacritty"

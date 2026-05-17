@@ -1,0 +1,72 @@
+set preview false
+set hidden false
+set icons true
+set ignorecase true
+
+# アイコン設定（iconsファイルで定義、iconsfmtは存在しないオプション）
+
+# カーソル行の色設定
+set cursoractivefmt "\033[7;1m"        # 現在選択行: 反転 + 太字（濃い反転）
+set cursorparentfmt "\033[48;5;238m"   # 親ディレクトリ: 薄いグレー背景（文字はそのまま）
+
+# その他のカーソル色オプション（お好みで変更可能）
+# set cursoractivefmt "\033[48;5;17;37;1m"  # 濃い青背景 + 白文字 + 太字
+# set cursorparentfmt "\033[48;5;240;37m"   # グレー背景 + 白文字
+
+cmd open $nvim $fx
+
+# 単純な終了コマンド（cdしない）
+cmd simple_quit :quit
+
+map <c-c> simple_quit
+
+# ディレクトリまたはファイルを開く（シェルのcdを更新してlfを閉じる）
+cmd enter_and_exit ${{
+    if [ -d "$f" ]; then
+        # ディレクトリの場合：cdフラグを設定してディレクトリに移動してから終了
+        [ -n "$LF_CD_FLAG_FILE" ] && echo "1" > "$LF_CD_FLAG_FILE"
+        lf -remote "send cd '$f'"
+        lf -remote "send quit"
+    else
+        # ファイルの場合：ファイルタイプに応じて開く
+        case "$f" in
+            *.MP4) open "$f" ;;
+            *)     nvim "$f" ;;
+        esac
+    fi
+}}
+
+# tmuxで新しいセッションを作成してディレクトリを開く（ポップアップを閉じる）
+cmd tmux_session ${{
+    if [ -n "$TMUX" ]; then
+        # 選択されているファイル/ディレクトリを確認
+        if [ -d "$f" ]; then
+            # 選択されているのがディレクトリの場合、そのディレクトリで新しいセッション
+            target_dir="$f"
+        else
+            # 選択されているのがファイルの場合、現在のディレクトリで新しいセッション
+            target_dir="$PWD"
+        fi
+        
+        session_name=$(basename "$target_dir" | tr '.' '_')
+        tmux new-session -d -s "$session_name" -c "$target_dir"
+        tmux switch-client -t "$session_name"
+        # ポップアップを閉じるためにlfを終了
+        lf -remote "send quit"
+    else
+        echo "tmux is not running"
+    fi
+}}
+
+# キーマッピング
+map <enter> enter_and_exit
+map l open  # 標準のopenはlキーで（lf内でディレクトリ移動）
+map t tmux_session
+
+# 検索機能
+map / search           # / でファイル名検索（インクリメンタル検索）
+map ? search-back      # ? で逆方向検索
+map n search-next      # n で次の検索結果
+map N search-prev      # N で前の検索結果
+map f find             # f でファイル名の一部を入力してジャンプ
+map F find-back        # F で逆方向のfind

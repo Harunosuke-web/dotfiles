@@ -1,0 +1,8 @@
+### Local settings ###
+*.local
+local.*
+
+### Zsh cache ###
+*.zwc
+.zcomp*
+.zsh_sessions

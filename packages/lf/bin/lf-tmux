@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# tmux用のlfラッパースクリプト
+# ディレクトリ変更をtmuxセッションに反映する
+
+tmp="$(mktemp)"
+cd_flag_file="$(mktemp)"
+trap 'rm -f "$tmp" "$cd_flag_file"' EXIT
+
+# lfの初期ディレクトリを記録
+initial_dir="$(pwd)"
+
+# 環境変数でcdフラグファイルのパスをlfに渡す
+export LF_CD_FLAG_FILE="$cd_flag_file"
+
+# lfを実行
+lf -last-dir-path="$tmp" "$@"
+
+# cdフラグファイルが存在し、かつ内容が"1"の場合のみcdする
+if [ -f "$cd_flag_file" ] && [ "$(cat "$cd_flag_file" 2>/dev/null)" = "1" ] && [ -f "$tmp" ]; then
+    dir="$(cat "$tmp")"
+    if [ -d "$dir" ] && [ "$dir" != "$initial_dir" ]; then
+        # ホームディレクトリの場合は ~ で表示
+        if [[ "$dir" == "$HOME"* ]]; then
+            display_dir="~${dir#$HOME}"
+        else
+            display_dir="$dir"
+        fi
+        # cdコマンドを実行（履歴に残す）
+        tmux send-keys -t "$(tmux display-message -p '#S:#I.#P')" "cd $(printf '%q' "$display_dir")" Enter
+    fi
+fi

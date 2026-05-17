@@ -1,0 +1,110 @@
+# ディレクトリアイコン
+di 󰉋
+
+# ファイルタイプ別アイコン
+# テキストファイル
+*.txt 󰈙
+*.md 󰍔
+*.json 󰘦
+*.yaml 󰈙
+*.yml 󰈙
+*.toml 󰈙
+*.ini 󰈙
+*.conf 󰈙
+*.config 󰈙
+
+# プログラミング言語
+*.py 󰌠
+*.js 󰌞
+*.ts 󰛦
+*.html 󰌝
+*.css 󰌜
+*.scss 󰌜
+*.sass 󰌜
+*.php 󰌟
+*.rb 󰴭
+*.go 󰟓
+*.rs 󱘗
+*.cpp 󰙲
+*.c 󰙱
+*.h 󰙱
+*.java 󰬷
+*.kt 󱈙
+*.swift 󰛥
+*.dart 󰯑
+*.lua 󰢱
+*.vim 󰕷
+*.sh 󰞷
+*.bash 󰞷
+*.zsh 󰞷
+*.fish 󰞷
+
+# ドキュメント
+*.pdf 󰈦
+*.doc 󰈬
+*.docx 󰈬
+*.xls 󰈛
+*.xlsx 󰈛
+*.ppt 󰈧
+*.pptx 󰈧
+
+# 画像
+*.jpg 󰋩
+*.jpeg 󰋩
+*.png 󰋩
+*.gif 󰋩
+*.bmp 󰋩
+*.svg 󰜡
+*.ico 󰋩
+*.webp 󰋩
+
+# 動画
+*.mp4 󰎁
+*.avi 󰎁
+*.mkv 󰎁
+*.mov 󰎁
+*.wmv 󰎁
+*.flv 󰎁
+*.webm 󰎁
+
+# 音声
+*.mp3 󰎆
+*.wav 󰎆
+*.flac 󰎆
+*.m4a 󰎆
+*.ogg 󰎆
+
+# アーカイブ
+*.zip 󰗀
+*.tar 󰗀
+*.gz 󰗀
+*.xz 󰗀
+*.bz2 󰗀
+*.7z 󰗀
+*.rar 󰗀
+
+# システム
+*.log 󰌱
+*.tmp 󰚰
+*.cache 󰚰
+*.lock 󰌾
+
+# Git
+.gitignore 󰊢
+.gitmodules 󰊢
+.gitattributes 󰊢
+
+# 設定ファイル
+Dockerfile 󰡨
+docker-compose.yml 󰡨
+Makefile 󱂚
+LICENSE 󰿃
+README.md 󰍔
+package.json 󰎙
+package-lock.json 󰎙
+yarn.lock 󰎙
+Cargo.toml 󱘗
+Cargo.lock 󱘗
+
+# デフォルト
+fi 󰈔
