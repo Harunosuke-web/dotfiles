@@ -11,13 +11,8 @@ SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}" || echo "${BASH_S
 source "$SCRIPT_DIR/../scripts/common.sh"
 source "$SCRIPT_DIR/../scripts/utils.sh"
 
-# DOTFILES_HOME="$GHQ_ROOT_PATH"/github.com/"$GITHUB_USER_NAME"/dotfiles
-DOTFILES_HOME="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-
+DOTFILES_HOME="$(cd "$SCRIPT_DIR/.." && pwd)"
 STOW_PACKAGES_PATH="$DOTFILES_HOME/packages"
-
-# DOTFILES_HOME="$GHQ_ROOT_PATH"/github.com/"$GITHUB_USER_NAME"/dotfiles
-# STOW_PACKAGES_PATH="$DOTFILES_HOME"/packages
 
 ###########################################################
 # Options
@@ -144,6 +139,7 @@ make_dir=(
     "$XDG_STATE_HOME"
     "$XDG_CACHE_HOME"
     "$XDG_CONFIG_HOME/zsh"
+    "$XDG_CACHE_HOME/zsh"
 )
 for dir in "${make_dir[@]}"; do
     ensure_dir "$dir"
