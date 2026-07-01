@@ -78,6 +78,7 @@ path=(
 fpath=(
   "$XDG_CONFIG_HOME/zsh/completions"(N-/)
   "$XDG_DATA_HOME/zsh/completions"(N-/)
+  /opt/homebrew/share/zsh/site-functions(N-/)  # Homebrew補完（_brew 等）。compinit前にfpathへ入れる
   "$fpath[@]"
 )
 

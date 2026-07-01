@@ -38,6 +38,10 @@ zinit light-mode for \
 zinit light-mode for \
     @'hlissner/zsh-autopair'
 
+# compinit の後に読み込まれた補完プラグイン（zsh-completions 等）が queue した
+# compdef を反映する。これが無いと後発の補完定義が有効にならない（zinit標準手順）。
+zinit cdreplay -q
+
 # ==========================================
 #  Package Management Strategy
 # ==========================================
