@@ -18,7 +18,7 @@ source "${XDG_CONFIG_HOME}/fzf/fzf-key-bindings.zsh"
 export FZF_COMPLETION_TRIGGER='**' # default: '**'
 export FZF_TMUX=1
 # export FZF_DEFAULT_COMMAND='fd --hidden --color=always'
-export FZF_DEFAULT_COMMAND="rg --files --hidden -l -g '!.git/*' -g '!node_modules/*'"
+export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git/*' -g '!node_modules/*'"
 
 ### --- FZF_TMUX_OPTS, FZF_DEFAULT_OPTS --- ###
 if [[ -n ${TMUX-} ]]; then
