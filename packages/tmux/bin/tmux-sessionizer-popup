@@ -45,7 +45,8 @@ format_directories_with_sessions() {
     local sessions=($(tmux list-sessions -F "#S" 2>/dev/null))
     local green="\033[32m" blue="\033[34m" reset="\033[0m" checked="󰄲" unchecked="󰄱"
 
-    find "${existing_dirs[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | while read -r dir; do
+    # -L: シンボリックリンクを辿るので、リンク先がディレクトリなら候補に含める
+    find -L "${existing_dirs[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | sort | while read -r dir; do
         local session_name=$(basename "$dir" | tr . _)
         local color="$blue"
         local icon="$unchecked"
