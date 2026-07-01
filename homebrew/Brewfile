@@ -80,6 +80,7 @@ cask "font-sauce-code-pro-nerd-font"  # Patched coding font with icons
 cask "google-chrome"  # Web browser by Google
 cask "google-drive"  # Google's cloud storage client
 cask "google-japanese-ime"  # Japanese input method editor
+cask "hammerspoon"  # Lua-scriptable macOS automation (auto-switches IME to English on app change)
 # cask "iterm2"  # Terminal emulator for macOS
 cask "keyboardcleantool"  # Disable keyboard for cleaning
 cask "notion"  # All-in-one workspace for notes and collaboration
