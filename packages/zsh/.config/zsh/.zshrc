@@ -78,8 +78,10 @@ path=(
 fpath=(
   "$XDG_CONFIG_HOME/zsh/completions"(N-/)
   "$XDG_DATA_HOME/zsh/completions"(N-/)
-  /opt/homebrew/share/zsh/site-functions(N-/)  # Homebrew補完（_brew 等）。compinit前にfpathへ入れる
   "$fpath[@]"
+  # Homebrew補完（_brew,_gh 等）。zsh組込みの高機能な補完(_git 等)を優先させるため“末尾”に置く。
+  # ここより前に組込み($fpath[@])があるので、重複する _git は組込みが勝ち、brew独自(_brew等)だけ拾われる。
+  /opt/homebrew/share/zsh/site-functions(N-/)
 )
 
 ### Environment Variables ###
