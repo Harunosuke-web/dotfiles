@@ -24,6 +24,13 @@ zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 # Preview directory's content with eza when completing cd
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# tmux内では補完を別ウィンドウ（ポップアップ）で表示する。tmux外では通常のfzf(インライン)に自動フォールバック。
+if [[ -n "$TMUX" ]]; then
+  zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+  # popup-min-size を画面より大きくして実質“全画面”に（prefix+C-f 等のポップアップと統一）。
+  # 小さめの内容サイズにしたい場合は例えば `80 12` などに下げる。
+  zstyle ':fzf-tab:*' popup-min-size 500 500
+fi
 
 ### Utility functions ###
 autoload -Uz zmv                    # Multi-move utility
