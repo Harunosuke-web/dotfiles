@@ -19,11 +19,29 @@
 
 ### Basic utility functions ###
 
-# History filtering function
+# History filtering + skip failed commands
+# 名前で常に除外する汎用/破壊系コマンド（追加したい語はここに足す）
+_hist_ignore_re='^(cd|z|which|history|jj?|lazygit|la|ll|ls|rm|rmdir|trash|pwd|clear|exit)($| )'
+
+# zshaddhistory はコマンド実行“前”に走り $? が分からないため、ここでは保存を保留し、
+# precmd で終了ステータスを見て「成功したコマンドだけ」履歴に確定する。
 zshaddhistory() {
   local line="${1%%$'\n'}"
-  [[ ! "$line" =~ "^(cd|z|which|history|jj?|lazygit|la|ll|ls|rm|rmdir|trash)($| )" ]]
+  [[ "$line" =~ $_hist_ignore_re ]] && return 1   # 名前で除外
+  _hist_pending="$line"
+  return 1                                         # いったん保存を保留（成功時のみ確定）
 }
+
+# 直前コマンドが成功(=0)した時だけ履歴へ確定。$? を最初に確保し、後段(starship等)へ素通しする。
+_hist_commit_on_success() {
+  local st=$?
+  [[ -n "$_hist_pending" && $st -eq 0 ]] && print -sr -- "$_hist_pending"
+  _hist_pending=""
+  return $st
+}
+
+# starship の precmd より先に走らせて真の $? を取るため precmd_functions の先頭へ挿入（多重登録は防止）
+(( ${precmd_functions[(Ie)_hist_commit_on_success]} )) || precmd_functions=(_hist_commit_on_success $precmd_functions)
 
 ### zsh Widget Functions ###
 
