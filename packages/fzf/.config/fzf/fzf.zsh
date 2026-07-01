@@ -44,7 +44,9 @@ EOF
         --bind 'ctrl-p:preview-half-page-up,ctrl-n:preview-half-page-down'"
 
     # export FZF_TMUX_OPTS="-p 90% -y45"
-    export FZF_TMUX_OPTS="-p 90%"
+    # 幅・高さの両方を指定して中央90%で表示（幅だけ指定だと高さが半端で上寄りになる）。
+    # fzfピッカー（fz/find_cd/ghq/セッション切替・削除/履歴/^Fセッション選択）に効く。
+    export FZF_TMUX_OPTS="-p 90%,90%"
 
 else
 

@@ -576,7 +576,8 @@ bindkey '^[f' tmux-sessionizer-popup
 lf_popup() {
     # Launch lf file manager in tmux popup (Ctrl+E)
     if [ -n "$TMUX" ]; then
-        tmux display-popup -w 90% -h 90% -E "~/.local/bin/lf-tmux"
+        # lf は没入型のファイルマネージャなので全画面（prefix+C-f と統一）
+        tmux display-popup -w 100% -h 100% -E "~/.local/bin/lf-tmux"
     else
         lf
     fi
