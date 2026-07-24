@@ -117,7 +117,7 @@ check_xcode_tools() {
 
 # Check internet connectivity
 check_internet() {
-    if ! ping -c 1 google.com >/dev/null 2>&1; then
+    if ! ping -c 1 google.com >/dev/null 2>&1 && ! curl -fsI --max-time 5 https://github.com >/dev/null 2>&1; then
         log_error "No internet connection available"
         return 1
     fi

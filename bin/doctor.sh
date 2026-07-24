@@ -10,7 +10,8 @@
 #    （設定だけ残って実体がない「死に設定」を早期発見する）
 # 3. Brewfileと実際のインストール状況の差分
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# symlink経由（~/.local/bin/doctor.sh）でも実体を解決できるよう readlink -f を使う
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "$0" 2>/dev/null || echo "$0")")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 . "$REPO_DIR/scripts/utils.sh"
 

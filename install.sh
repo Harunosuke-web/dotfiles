@@ -26,8 +26,8 @@ if [ "$(uname)" != "Darwin" ]; then
     exit 1
 fi
 
-# Check internet connectivity
-if ! ping -c 1 google.com >/dev/null 2>&1; then
+# Check internet connectivity (pingはICMP遮断ネットワークで誤検知するためcurlをフォールバックに)
+if ! ping -c 1 google.com >/dev/null 2>&1 && ! curl -fsI --max-time 5 https://github.com >/dev/null 2>&1; then
     echo "❌ ERROR: No internet connection available" >&2
     exit 1
 fi

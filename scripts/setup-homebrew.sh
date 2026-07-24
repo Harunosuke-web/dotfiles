@@ -140,8 +140,12 @@ filtered_brewfile="/tmp/Brewfile.filtered"
 create_filtered_brewfile "$source_brewfile" "$filtered_brewfile"
 
 # Install from filtered Brewfile
+# 一部の失敗（App Store未サインインでのmas等）でセットアップ全体を止めない
 log "Installing packages from filtered configuration..."
-brew bundle install --file "$filtered_brewfile" -v
+if ! brew bundle install --file "$filtered_brewfile" -v; then
+    log_warn "Some packages failed to install (typical cause: not signed in to App Store)"
+    log_info "Retry later with: brew bundle install --file ${REPO_DIR}/homebrew/Brewfile"
+fi
 
 # Cleanup temporary files
 rm -f /tmp/Brewfile.original /tmp/Brewfile.filtered

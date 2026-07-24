@@ -7,8 +7,9 @@
 # Usage: ./bin/update.sh [--dry-run] [--force]
 
 # Load utils for logging functions
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-. "$SCRIPT_DIR/utils.sh"
+# symlink経由（~/.local/bin/update.sh）でも実体を解決できるよう readlink -f を使う
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "$0" 2>/dev/null || echo "$0")")" && pwd)"
+. "$SCRIPT_DIR/../scripts/utils.sh"
 
 # Configuration
 DRY_RUN=false

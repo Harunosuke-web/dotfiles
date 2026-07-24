@@ -103,7 +103,11 @@ if [ ${#unlink_packages[@]} -gt 0 ]; then
 fi
 
 if [ "$unlink_all" = 1 ]; then
-    submodules=$(awk '/path/ {print $3}' "$DOTFILES_HOME/.gitmodules" | sed 's|.*/||')
+    # .gitmodules が無いリポジトリでも -uall が動くようガード
+    submodules="__no_submodules__"
+    if [ -f "$DOTFILES_HOME/.gitmodules" ]; then
+        submodules=$(awk '/path/ {print $3}' "$DOTFILES_HOME/.gitmodules" | sed 's|.*/||')
+    fi
     full_paths="$(fd --hidden --no-ignore -t f -H -I -E "$submodules" -E "zsh" . "$STOW_PACKAGES_PATH")"
 
     # Extract unique package names from paths
