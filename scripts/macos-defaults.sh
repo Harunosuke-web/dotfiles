@@ -274,6 +274,14 @@ defaults write org.hammerspoon.Hammerspoon MJConfigFile "$HOME/.config/hammerspo
 defaults write com.apple.screencapture disable-shadow -bool true # スクリーンショットウィンドウの影を非表示 #default: false
 
 # Set screenshot location (Google Drive if mounted, otherwise ~/Screenshot)
+#
+# ⚠️ ここで設定できるのは「macOS純正の」スクリーンショット機能の保存先だけ。
+#    CleanShot Xを使っている間はCmd+Shift+3/4/5をCleanShotが奪うため、
+#    実際の保存先はCleanShot側のGUI設定（Preferences > General）で決まり、
+#    この設定は効かない。CleanShotをやめた場合の受け皿として残している。
+#    純正ショートカット自体もCleanShotがsymbolichotkeys 28/29/30/31/184を
+#    無効化するので、CleanShot未起動だとスクショが撮れない状態になる。
+#
 # アカウントのメールアドレスに依存しないようglobで自動検出する。
 # ルート名はGoogle Driveの表示言語で変わるため "My Drive" と "マイドライブ" の両方を見る。
 SCREENSHOT_DIR=""
