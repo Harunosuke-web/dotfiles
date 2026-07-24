@@ -34,7 +34,6 @@ brew "gemini-cli"  # Command line client for Gemini protocol
 brew "ghq"  # Git repository manager for organizing cloned repos
 brew "git-lfs"  # Git extension for versioning large files
 # brew "go"  # Go programming language (managed by mise)
-brew "hub"  # GitHub wrapper for git command
 brew "jq"  # JSON processor and query tool
 brew "lazygit"  # Terminal UI for git commands
 brew "lf"  # Terminal file manager
@@ -53,9 +52,7 @@ brew "wget"  # Internet file retriever
 brew "zsh"  # Z shell with extended features
 
 # C/C++ Development Tools
-brew "cmake"  # Cross-platform build system
 brew "llvm"   # LLVM compiler infrastructure (newer clang)
-brew "gdb"    # GNU debugger
 
 ### --- Window Manager --- ###
 brew "koekeishiya/formulae/skhd"  # Hotkey daemon for macOS
