@@ -143,6 +143,8 @@ make_dir=(
     # VSCode未起動のマシンでstowがCodeフォルダごとsymlink化（folding）し、
     # キャッシュ類がリポジトリ内に書き込まれる事故を防ぐ
     "$HOME/Library/Application Support/Code/User"
+    # 同上：Claude Code未起動のマシンで履歴・キャッシュがリポジトリに入るのを防ぐ
+    "$HOME/.claude"
 )
 for dir in "${make_dir[@]}"; do
     ensure_dir "$dir"
