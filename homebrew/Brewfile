@@ -38,6 +38,7 @@ brew "lazygit"  # Terminal UI for git commands
 brew "lf"  # Terminal file manager
 brew "libssh2"  # C library implementing SSH2 protocol
 brew "mas"  # Mac App Store command line interface
+brew "macism"  # CLI for switching macOS input sources (used by VSCodeVim IME auto-switch)
 brew "neovim"  # Vim-based text editor
 # brew "node"  # Node.js JavaScript runtime (managed by mise)
 brew "openssl@3"  # Cryptography and SSL/TLS toolkit
