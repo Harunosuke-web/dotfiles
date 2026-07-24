@@ -30,10 +30,11 @@ export VIMINIT='let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | so $MYVIMRC'
 export NODE_REPL_HISTORY="$XDG_STATE_HOME/node_history"
 
 ### npm ###
-export NPM_CONFIG_DIR="$XDG_CONFIG_HOME/npm"
+export NPM_CONF_DIR="$XDG_CONFIG_HOME/npm"  # NPM_CONFIG_* を避けた名前（npmが設定と誤解釈して警告を出すため）
 export NPM_DATA_DIR="$XDG_DATA_HOME/npm"
 export NPM_CACHE_DIR="$XDG_CACHE_HOME/npm"
-export NPM_CONFIG_USERCONFIG="$NPM_CONFIG_DIR/npmrc"
+export NPM_CONFIG_USERCONFIG="$NPM_CONF_DIR/npmrc"
+export PATH="$NPM_DATA_DIR/bin:$PATH"  # npm install -g の実行ファイル置き場
 
 ### Python ###
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup.py"
