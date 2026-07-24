@@ -15,6 +15,28 @@ Managed by:
 curl -fsSL https://raw.githubusercontent.com/Harunosuke-web/dotfiles/main/install.sh | sh
 ```
 
+### セットアップモード / Setup Modes
+
+`BOOTSTRAP_MODE`環境変数を付けると、対話プロンプトなしでモードを指定できる:
+
+```bash
+# [1] フルセットアップ（新しいMacの初回構築はこれ）
+BOOTSTRAP_MODE=1 curl -fsSL https://raw.githubusercontent.com/Harunosuke-web/dotfiles/main/install.sh | sh
+
+# [2] 更新のみ（Homebrew・mise・シンボリックリンクの再実行）
+BOOTSTRAP_MODE=2 curl -fsSL https://raw.githubusercontent.com/Harunosuke-web/dotfiles/main/install.sh | sh
+
+# [3] リポジトリの更新のみ（セットアップはスキップ）
+BOOTSTRAP_MODE=3 curl -fsSL https://raw.githubusercontent.com/Harunosuke-web/dotfiles/main/install.sh | sh
+```
+
+> **新しいMacでの注意**
+>
+> - 実行前に **App Store にサインイン**しておくと`mas`製アプリのインストールまで一括で成功する
+>   （未サインインでも他のセットアップは継続され、あとから `brew bundle install` で再試行できる）
+> - Homebrew本体のインストール時に**管理者パスワード**の入力を求められる
+> - 完了後、環境の健全性は `doctor.sh` で確認できる
+
 ## Details
 
 詳細なセットアップ手順、カスタマイズ方法、利用可能なスクリプトについては [SETUP.md](SETUP.md) をご覧ください。

@@ -273,43 +273,27 @@ defaults write org.hammerspoon.Hammerspoon MJConfigFile "$HOME/.config/hammerspo
 # defaults write com.apple.screencapture name ScreenShot # スクリーンショットのファイル名 #default: "Screenshot"
 defaults write com.apple.screencapture disable-shadow -bool true # スクリーンショットウィンドウの影を非表示 #default: false
 
-# Set screenshot location (Google Drive if available, otherwise ~/Screenshot)
-# if [ -n "$GOOGLE_DRIVE_EMAIL" ]; then
-#     # Use environment variable if set
-#     GOOGLE_DRIVE_PATH="$HOME/Library/CloudStorage/GoogleDrive-${GOOGLE_DRIVE_EMAIL}/My Drive/Screenshot"
-#     if [ -d "$GOOGLE_DRIVE_PATH" ]; then
-#         SCREENSHOT_DIR="$GOOGLE_DRIVE_PATH"
-#         defaults write com.apple.screencapture location "$SCREENSHOT_DIR"
-#         echo "📸 Screenshot location set to: $SCREENSHOT_DIR"
-#     else
-#         echo "⚠️  Google Drive Screenshot folder not found at: $GOOGLE_DRIVE_PATH"
-#         defaults write com.apple.screencapture location ~/Screenshot
-#         mkdir -p ~/Screenshot
-#         echo "📸 Screenshot location set to: ~/Screenshot (fallback)"
-#     fi
-# else
-#     # Auto-detect Google Drive path
-#     GOOGLE_DRIVE_BASE="$HOME/Library/CloudStorage"
-#     SCREENSHOT_DIR=""
-
-#     # Find Google Drive directory
-#     for gdrive_dir in "$GOOGLE_DRIVE_BASE"/GoogleDrive-*; do
-#         if [ -d "$gdrive_dir/My Drive/Screenshot" ]; then
-#             SCREENSHOT_DIR="$gdrive_dir/My Drive/Screenshot"
-#             break
-#         fi
-#     done
-
-#     if [ -n "$SCREENSHOT_DIR" ]; then
-#         defaults write com.apple.screencapture location "$SCREENSHOT_DIR"
-#         echo "📸 Screenshot location set to: $SCREENSHOT_DIR"
-#     else
-#         # Google Drive not found - use local folder
-#         defaults write com.apple.screencapture location ~/Screenshot
-#         mkdir -p ~/Screenshot
-#         echo "📸 Screenshot location set to: ~/Screenshot (Google Drive not found)"
-#     fi
-# fi
+# Set screenshot location (Google Drive if mounted, otherwise ~/Screenshot)
+# アカウントのメールアドレスに依存しないようglobで自動検出する。
+# ルート名はGoogle Driveの表示言語で変わるため "My Drive" と "マイドライブ" の両方を見る。
+SCREENSHOT_DIR=""
+for gdrive_dir in "$HOME/Library/CloudStorage"/GoogleDrive-*; do
+    for drive_root in "My Drive" "マイドライブ"; do
+        if [ -d "$gdrive_dir/$drive_root" ]; then
+            SCREENSHOT_DIR="$gdrive_dir/$drive_root/Screenshot"
+            mkdir -p "$SCREENSHOT_DIR"
+            break 2
+        fi
+    done
+done
+if [ -z "$SCREENSHOT_DIR" ]; then
+    SCREENSHOT_DIR="$HOME/Screenshot"
+    mkdir -p "$SCREENSHOT_DIR"
+    echo "⚠️  Google Drive not mounted - using local folder"
+fi
+defaults write com.apple.screencapture location "$SCREENSHOT_DIR"
+echo "📸 Screenshot location set to: $SCREENSHOT_DIR"
+killall SystemUIServer 2>/dev/null || true # スクリーンショット設定を即時反映
 
 # defaults write com.apple.screencapture include-date -bool false # スクリーンショットファイル名から日付除去 #default: true
 # defaults write com.apple.screencapture type -string "png" # スクリーンショットの形式 #default: "png"
