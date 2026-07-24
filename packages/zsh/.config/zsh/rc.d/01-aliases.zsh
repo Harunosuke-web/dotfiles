@@ -97,5 +97,8 @@ alias update='$HOME/.local/bin/update.sh'
 # Dotfiles link management
 alias setup-links='$HOME/.local/bin/setup-links.sh'
 
+# Dotfiles health check (broken symlinks / dead configs / Brewfile drift)
+alias doctor='$HOME/.local/bin/doctor.sh'
+
 # Local configuration setup
 alias setup-local='$HOME/.local/bin/setup-local-config.sh'
