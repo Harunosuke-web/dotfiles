@@ -28,7 +28,6 @@ brew "ripgrep"  # Fast text search tool (rg)
 
 brew "bat"  # Cat clone with syntax highlighting
 brew "cmake"  # Cross-platform build system
-brew "dylibbundler"  # Utility to bundle dependencies into macOS apps
 brew "fd"  # Simple, fast alternative to find
 brew "gemini-cli"  # Command line client for Gemini protocol
 brew "ghq"  # Git repository manager for organizing cloned repos
@@ -44,15 +43,12 @@ brew "neovim"  # Vim-based text editor
 brew "openssl@3"  # Cryptography and SSL/TLS toolkit
 # brew "python@3.13"  # Python programming language version 3.13 (managed by mise)
 brew "starship"  # Cross-shell customizable prompt
-brew "tesseract"  # OCR (Optical Character Recognition) engine
-brew "tesseract-lang"  # Language packages for tesseract OCR
 brew "tmux"  # Terminal multiplexer
 brew "trash", link: true  # Move files to trash from command line
 brew "wget"  # Internet file retriever
 brew "zsh"  # Z shell with extended features
 
 # C/C++ Development Tools
-brew "llvm"   # LLVM compiler infrastructure (newer clang)
 
 ### --- Window Manager --- ###
 brew "koekeishiya/formulae/skhd"  # Hotkey daemon for macOS
