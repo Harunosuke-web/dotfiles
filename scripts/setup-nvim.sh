@@ -5,11 +5,11 @@ set -e
 source "$(dirname "$0")/common.sh"
 source "$(dirname "$0")/utils.sh"
 
-# Clone nvim repository if not exists
+# nvim リポジトリは事前に手動でクローンしておく（例: ghq get <owner>/nvim）
 if ! is_dir "$GHQ_ROOT_PATH/github.com/$GITHUB_USER_NAME/nvim"; then
-    log_step "CLONE" "Cloning Nvim repository..."
-    ghq get Harunosuke-web/nvim
-    log_success "Nvim repository cloned"
+    log_warn "Nvim repository not found: $GHQ_ROOT_PATH/github.com/$GITHUB_USER_NAME/nvim"
+    log_info "Clone it manually first - skipping nvim setup"
+    exit 0
 fi
 
 # Handle existing ~/.config/nvim and create symlink
