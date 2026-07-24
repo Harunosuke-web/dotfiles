@@ -39,9 +39,61 @@ BOOTSTRAP_MODE=3 curl -fsSL https://raw.githubusercontent.com/Harunosuke-web/dot
 
 ## Details
 
-詳細なセットアップ手順、カスタマイズ方法、利用可能なスクリプトについては [SETUP.md](SETUP.md) をご覧ください。
+詳細なセットアップ手順、カスタマイズ方法、利用可能なスクリプトについては [docs/SETUP.md](docs/SETUP.md) をご覧ください。
 
-For detailed setup instructions, customization options, and available scripts, see [SETUP.md](SETUP.md).
+For detailed setup instructions, customization options, and available scripts, see [docs/SETUP.md](docs/SETUP.md).
+
+## 手動セットアップ / Manual Setup
+
+スクリプト実行後に**GUI操作が必要**な項目。スクリプトでは自動化できない（アクティベーション・
+ライセンス認証・システム権限の許可など、OSがユーザーの明示的な操作を要求するもの）。
+
+### 1. システム権限の許可
+
+初回起動時にダイアログが出るので許可する。**許可しないとアプリが黙って動かない。**
+
+| アプリ | 必要な権限 | 場所 |
+| --- | --- | --- |
+| yabai / skhd | アクセシビリティ | システム設定 > プライバシーとセキュリティ > アクセシビリティ |
+| CleanShot X | 画面収録 | 同上 > 画面収録 |
+| BetterTouchTool | アクセシビリティ・入力監視 | 同上 |
+| Hammerspoon | アクセシビリティ | 同上 |
+
+yabaiはスクリプトでインストールされるが、**サービスの起動は手動**:
+
+```bash
+yabai --start-service
+skhd --start-service
+```
+
+### 2. ライセンス認証 / アクティベート
+
+- **CleanShot X** — ライセンスキーを入力
+- **BetterTouchTool** — ライセンスキーを入力
+- **1Password** — アカウントにサインイン
+
+### 3. CleanShot X の設定（重要）
+
+CleanShotは`Cmd+Shift+3/4/5`を**macOS純正から奪う**（symbolichotkeysを無効化する）。
+そのため**CleanShotが起動していないとスクリーンショットが一切撮れない**状態になる。
+Preferences で以下2つを必ず設定すること:
+
+- **General > Launch CleanShot X at login** を有効化（未設定だと上記の状態に陥る）
+- **General > Save to** で保存先を指定（例: Google Drive の `マイドライブ/Screenshot`）
+  - `macos-defaults.sh`が設定するのは**macOS純正の**保存先で、CleanShot使用中は効かない
+
+### 4. 1Password CLI
+
+SSH鍵の署名・認証を1Passwordエージェントに任せているため、CLI連携が必要:
+
+- 1Passwordアプリ > 設定 > 開発者 > **「1Password CLIと連携」**を有効化
+- 同 > **「SSHエージェントを使用」**を有効化
+- 連携後、`op whoami` で確認できる
+
+### 5. その他
+
+- **App Store にサインイン** — `mas`によるアプリインストールに必要（セットアップ前が理想）
+- **再ログイン** — トラックパッド・キーボード・Caps Lockの設定は再ログイン後に反映される
 
 ## 主な機能 / Key Features
 
