@@ -10,9 +10,6 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 ### zsh ###
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
-### github.com ###
-# export GITHUB_USER_NAME="Harunosuke-web"
-
 ### ghq ###
 export GHQ_ROOT_PATH="$HOME/Repos"
 export GHQ_GET_PATH="$GHQ_ROOT_PATH/github.com"

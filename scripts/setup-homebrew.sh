@@ -3,7 +3,6 @@ set -e
 # shellcheck source=./scripts/common.sh
 source "$(dirname "$0")/common.sh"
 source "$(dirname "$0")/utils.sh"
-export GITHUB_USER_NAME="Harunosuke-web"
 
 if ! is_macos; then
     log_error 'This machine is not macOS!'
