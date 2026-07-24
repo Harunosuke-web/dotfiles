@@ -27,7 +27,7 @@ experimental = false
 log_level = "info"
 
 [tools]
-node = "latest"
+node = "lts"
 python = "3.11"
 go = "1.21"
 yarn = "latest"
