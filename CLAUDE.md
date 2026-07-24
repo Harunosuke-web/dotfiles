@@ -32,5 +32,5 @@ man/         自作スクリプトのmanページ
 
 - `~/.zshenv`や`~/.config/*`はこのリポジトリへのシンボリックリンク。**編集は必ずリポジトリの実体側**で行う（ホーム側を直接編集しようとするとsymlinkエラーになる）
 - `GITHUB_USER_NAME`は`scripts/common.sh`が唯一の定義場所。他で再定義しない
-- このCLAUDE.md自体はグローバルgitignoreの対象のため`git add -f`で追跡している
+- CLAUDE.mdはグローバルgitignoreの対象外（通常どおりGitで追跡する）。プロジェクト側の`.claude/`はignoreされる
 - パッケージの一括削除や構成の大規模変更は、所有者に確認してから
