@@ -1,3 +1,10 @@
+""" ----- Plugin directory (XDG) -----
+" プラグインは ~/.vim ではなく $XDG_DATA_HOME/vim に置く。
+" configではなくdata扱いなのと、~/.config/vim はdotfilesリポジトリへの
+" symlinkのため、そこにプラグインを置くとリポジトリ内に混入するのを避ける。
+set packpath^=$XDG_DATA_HOME/vim
+set runtimepath^=$XDG_DATA_HOME/vim
+
 filetype plugin on
 
 " -----------------------------------------------------------------------------
