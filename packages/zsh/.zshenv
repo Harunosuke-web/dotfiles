@@ -50,12 +50,6 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
 export GO111MODULE="on"
 
-### Ruby ###
-export IRBRC="$XDG_CONFIG_HOME/irb/irbrc"
-
-### Deno ###
-export DENO_INSTALL="$XDG_DATA_HOME/deno"
-
 ### Database Tools ###
 export SQLITE_HISTORY="$XDG_STATE_HOME/sqlite_history"
 export MYSQL_HISTFILE="$XDG_STATE_HOME/mysql_history"

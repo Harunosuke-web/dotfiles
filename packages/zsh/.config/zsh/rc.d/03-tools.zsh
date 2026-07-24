@@ -17,9 +17,6 @@ if [ ! -d "$GHQ_ROOT_PATH/github.com/ThePrimeagen/tmux-sessionizer" ]; then
 fi
 
 
-### direnv ###
-command -v direnv >/dev/null && eval "$(direnv hook zsh)"
-
 ### bat ###
 export BAT_CONFIG_PATH="$XDG_CONFIG_HOME/bat"
 export MANPAGER="sh -c 'col -bx | bat --color=always --language=man --plain'"

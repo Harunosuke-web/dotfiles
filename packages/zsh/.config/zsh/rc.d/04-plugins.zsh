@@ -51,7 +51,7 @@ zinit cdreplay -q
 # - Completions: /opt/homebrew/share/zsh/site-functions/
 #
 # zinit: Lightweight utilities, shell-specific plugins
-# - mmv, tealdeer, zoxide
+# - mmv, zoxide
 # - zsh-autosuggestions, fast-syntax-highlighting, etc.
 #
 # ==========================================
@@ -138,27 +138,6 @@ zinit light-mode as'program' from'gh-r' for \
     @'ajeetdsouza/zoxide'
 
 # ==========================================
-#  Documentation & Help Tools
-# ==========================================
-
-# tealdeer - Fast tldr client for command documentation (alias: tldr)
-# tealdeer installed via Homebrew, completion available at /opt/homebrew/share/zsh/site-functions/_tldr
-# Alternative zinit installation (commented out since using Homebrew):
-# zinit wait lucid light-mode as'program' from'gh-r' for \
-#     mv'tealdeer* -> tldr' \
-#     bpick'*x86_64-apple-darwin*' \
-#     atclone'__tealdeer_atclone' atpull'%atclone' \
-#     atload'__tealdeer_atload' \
-#     @'dbrgn/tealdeer'
-# __tealdeer_atclone() {
-#     curl -sSL 'https://raw.githubusercontent.com/dbrgn/tealdeer/main/completion/zsh_tealdeer' -o _tealdeer
-# }
-__tealdeer_atload() {
-    export TEALDEER_CONFIG_DIR="$XDG_CONFIG_HOME/tealdeer"
-}
-__tealdeer_atload
-
-# ==========================================
 #  Modern CLI Replacements
 # ==========================================
 
@@ -198,22 +177,6 @@ __tealdeer_atload
 #     pick'hgrep*/hgrep' \
 #     atload'__hgrep_atload' \
 #     @'rhysd/hgrep'
-
-# zeno.zsh - Deno-powered snippet expansion (requires deno)
-# if command -v deno >/dev/null 2>&1; then
-#     export ZENO_HOME="$XDG_CONFIG_HOME/zeno"
-#     export ZENO_ENABLE_SOCK=1
-#     export ZENO_GIT_CAT="bat --color=always"
-#     export ZENO_GIT_TREE="exa --tree"
-#     __zeno_atload() {
-#         bindkey ' '  zeno-auto-snippet
-#         bindkey '^M' zeno-auto-snippet-and-accept-line
-#         bindkey '^P' zeno-completion
-#     }
-#     zinit wait lucid light-mode for \
-#         atload'__zeno_atload' \
-#         @'yuki-yano/zeno.zsh'
-# fi
 
 # emojify - Add emoji to your terminal output
 # zinit wait lucid light-mode as'program' for \
