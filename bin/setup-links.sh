@@ -158,8 +158,10 @@ done
 ensure_dir "$HOME/.ssh"
 chmod 700 "$HOME/.ssh"
 
-# ensure_dir "$HOME/.gnupg"
-# chmod 700 "$HOME/.gnupg"
+# GnuPG（GNUPGHOMEで$XDG_DATA_HOME/gnupgに移設済み）
+# 秘密鍵が入りうるためリポジトリでは管理しない。ディレクトリと権限だけ用意する
+ensure_dir "${XDG_DATA_HOME:-$HOME/.local/share}/gnupg"
+chmod 700 "${XDG_DATA_HOME:-$HOME/.local/share}/gnupg"
 
 ### Stow link ###
 log 'Linking packages...'

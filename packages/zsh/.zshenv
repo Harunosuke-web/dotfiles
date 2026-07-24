@@ -47,6 +47,10 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
 export GO111MODULE="on"
 
+### GnuPG ###
+# ⚠️ 秘密鍵が入りうるディレクトリ。dotfilesリポジトリには絶対に含めない
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+
 ### Database Tools ###
 export SQLITE_HISTORY="$XDG_STATE_HOME/sqlite_history"
 export MYSQL_HISTFILE="$XDG_STATE_HOME/mysql_history"
