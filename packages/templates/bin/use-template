@@ -3,8 +3,9 @@
 set -euo pipefail
 
 # Get the directory where this script is located
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PACKAGE_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
+# symlink経由（~/.local/bin/use-template）でも実体を解決できるよう readlink -f を使う
+SCRIPT_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || echo "${BASH_SOURCE[0]}")")" && pwd)"
+PACKAGE_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 TEMPLATES_DIR="$PACKAGE_ROOT/templates"
 
 # Template script - no external dependencies needed
