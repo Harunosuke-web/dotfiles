@@ -74,14 +74,29 @@ zinit light-mode as'program' from'gh-r' for \
 
 # navi - Interactive cheat sheet for terminal commands (Ctrl+N to search)
 # navi installed via Homebrew, configuration and keybindings below
+# naviは起動時のtty幅で列幅を決めるため、分割したペインで開くと列が潰れる。
+# popup（ウィンドウ全幅）の中でnaviを起動して全幅を使わせる。
+# popup内では fzf 側の --tmux が不要（入れ子になる）ので、CLIの --fzf-overrides で
+# configの指定を置き換えて打ち消している。
 __navi_search() {
-    LBUFFER="$(navi --print --path '$XDG_CONFIG_HOME/navi/cheats' --query="$LBUFFER")"
+    local result
+    if [[ -n "$TMUX" ]]; then
+        local tmpfile
+        tmpfile="$(mktemp)"
+        # popupはPATHを引き継がないことがあるためnaviの絶対パスを渡す
+        tmux display-popup -w 100% -h 100% -E \
+            "${commands[navi]} --print --fzf-overrides '--with-nth 2,3,1' --query=${(qq)LBUFFER} > ${(qq)tmpfile}"
+        result="$(<"$tmpfile")"
+        command rm -f -- "$tmpfile"
+    else
+        result="$(navi --print --query="$LBUFFER")"
+    fi
+    [[ -n "$result" ]] && LBUFFER="$result"
     zle reset-prompt
 }
 __setup_navi() {
     if command -v navi >/dev/null; then
         export NAVI_CONFIG="$XDG_CONFIG_HOME/navi/config.yaml"
-        alias mynavi="navi --path '$XDG_CONFIG_HOME/navi/cheats'"
 
         zle -N __navi_search
         bindkey '^N' __navi_search
