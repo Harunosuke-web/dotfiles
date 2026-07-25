@@ -1,0 +1,55 @@
+% archive, tar, zip
+
+# 中身を確認する（展開する前に必ず見る）
+tar tzf <archive>
+
+# tar.gzを展開する
+tar xzf <archive>
+
+# 展開先を指定して展開する
+tar xzf <archive> -C <dest>
+
+# ディレクトリをtar.gzに固める
+tar czf <name>.tar.gz <dir>
+
+# .gitを除いて固める
+tar czf <name>.tar.gz --exclude=".git" <dir>
+
+# tar.bz2 / tar.xz を展開する（拡張子から自動判定）
+tar xf <archive>
+
+# zipの中身を確認する
+unzip -l <archive>
+
+# zipを展開する
+unzip <archive>
+
+# 展開先を指定してzipを展開する
+unzip <archive> -d <dest>
+
+# ディレクトリをzipに固める（macOSのゴミを入れない）
+zip -r <name>.zip <dir> -x "*.DS_Store"
+
+# パスワード付きzipを作る
+zip -er <name>.zip <dir>
+
+# ファイル1つをgzipで圧縮する（元ファイルは消える）
+gzip <file>
+
+# gzipを解凍する
+gunzip <archive>
+
+# gzipのまま中身を見る
+zcat <archive> | less
+
+# dmgをマウントする
+hdiutil attach <archive>
+
+# dmgをアンマウントする
+hdiutil detach /Volumes/<volume>
+
+$ archive: fd --type=f --color=always -e gz -e tgz -e zip -e bz2 -e xz -e dmg
+$ dir: fd --type=d --color=always
+$ dest: fd --type=d --color=always
+$ file: fd --type=f --color=always
+$ volume: ls /Volumes

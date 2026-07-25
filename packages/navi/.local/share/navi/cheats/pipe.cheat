@@ -1,0 +1,55 @@
+% pipe, redirect, shell
+
+# 出力を次のコマンドに流し込む（パイプ）
+ls | grep "<pattern>"
+
+# 3連結：最近使ったgitコマンドを思い出す
+history | grep git | tail -5
+
+# 行数を数える
+<command> | wc -l
+
+# 結果をファイルに書く（既存の中身は上書きで消える）
+<command> > <file>
+
+# 結果をファイルの末尾に追記する（消えない）
+<command> >> <file>
+
+# エラー出力も一緒にファイルへ流す
+<command> > <file> 2>&1
+
+# エラー出力を捨てて、成功した結果だけ見る
+<command> 2>/dev/null
+
+# 出力を画面にもファイルにも同時に出す
+<command> | tee <file>
+
+# 左が成功したときだけ右を実行
+npm install && npm run dev
+
+# 左が失敗したときだけ右を実行
+<command> || echo "失敗"
+
+# 成否に関係なく順番に実行
+<command1>; <command2>
+
+# 前のコマンドの結果を引数として渡す（コマンド置換）
+echo "$(<command>)"
+
+# 一覧を受け取って1件ずつコマンドに渡す
+<command> | xargs -I{} echo {}
+
+# 重複を除いて出現回数を数える（多い順）
+<command> | sort | uniq -c | sort -rn
+
+# 特定の列だけ取り出す
+<command> | awk '{print $1}'
+
+# 文字列を置換しながら流す
+<command> | sed 's/<before>/<after>/g'
+
+# 直前のコマンドの終了コードを見る（0なら成功）
+echo $?
+
+# 長い出力をページャで読む
+<command> | less

@@ -1,0 +1,88 @@
+% basics, unix, kihon
+
+# 今どこにいるか（迷子になったら）
+pwd
+
+# 隠しファイル含めて詳細表示（.gitや.zshrcは -a でないと見えない）
+ls -la
+
+# ひとつ上のディレクトリへ
+cd ..
+
+# ホームへ帰る
+cd ~
+
+# さっきいた場所に戻る
+cd -
+
+# フォルダを作る（-p で深い階層も一気に）
+mkdir -p <path>
+
+# 空ファイルを作る
+touch <file>
+
+# フォルダごとコピーする
+cp -r <src> <dest>
+
+# 移動 兼 リネーム（同じコマンドで両方できる）
+mv <src> <dest>
+
+# フォルダごと削除する（rmにゴミ箱はない。打つ前に一呼吸）
+rm -r <path>
+
+# ファイルの中身を全部表示
+cat <file>
+
+# 長いファイルをスクロールしながら見る（qで終了）
+less <file>
+
+# 先頭20行だけ見る
+head -20 <file>
+
+# 末尾20行だけ見る（ログ確認の定番）
+tail -20 <file>
+
+# ログを流しながら見る（Ctrl+Cで止める）
+tail -f <file>
+
+# ファイルの中身から文字列を探す（再帰的に）
+grep -rn "<pattern>" <dir>
+
+# ファイル名で探す
+find . -name "<glob>"
+
+# そのコマンドの実体がどこにあるか（環境トラブル調査の起点）
+which <command>
+
+# そのコマンドが何個どこに入っているか全部表示（重複インストールの調査）
+which -a <command>
+
+# 過去に打ったコマンドを検索する
+history | grep "<pattern>"
+
+# コマンドの説明書を読む（qで終了）
+man <command>
+
+# 今の場所をFinderで開く
+open .
+
+# ファイルを既定アプリで開く
+open <file>
+
+# ファイルの中身をクリップボードへ
+pbcopy < <file>
+
+# クリップボードの中身を貼り出す
+pbpaste
+
+# 今の場所をVS Codeで開く
+code .
+
+# 開発サーバーを起動する（止めるのは Ctrl+C）
+npm run dev
+
+$ path: fd --type=d --color=always
+$ file: fd --type=f --color=always
+$ src: fd --color=always
+$ dir: fd --type=d --color=always
+$ command: echo "${(F)commands}"

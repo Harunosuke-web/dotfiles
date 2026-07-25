@@ -1,0 +1,115 @@
+% git, gh
+
+# 今の変更状況を見る（迷ったらまずこれ）
+git status
+
+# 変更を1ヶ所ずつ選んでステージする
+git add -p
+
+# ステージした内容を確認する（コミット前の最終チェック）
+git diff --staged
+
+# コミットする（Conventional Commits形式）
+git commit -m "<type>(<scope>): <説明>"
+
+# 直前のコミットにメッセージを変えずに追加する
+git commit --amend --no-edit
+
+# 直前のコミットメッセージを書き直す
+git commit --amend
+
+# リモートへ送る
+git push
+
+# 新しいブランチを初回pushする（上流も設定）
+git push -u origin HEAD
+
+# リモートの変更を取り込む（マージコミットを作らない）
+git pull --rebase
+
+# 履歴をグラフで眺める
+git log --oneline --graph --decorate --all
+
+# あるファイルの変更履歴だけ追う
+git log --follow -p -- <file>
+
+# 新しいブランチを作って移動する
+git switch -c <new_branch>
+
+# ブランチを切り替える
+git switch <branch>
+
+# ブランチを削除する
+git branch -d <branch>
+
+# 作業を一時退避する（名前を付けて）
+git stash push -m "<message>"
+
+# 退避した一覧を見る
+git stash list
+
+# 直前の退避を戻す
+git stash pop
+
+# 作業中の変更を捨てて元に戻す（コミット前）
+git restore <file>
+
+# ステージだけ取り消す（変更内容は残す）
+git restore --staged <file>
+
+# 直前のコミットを取り消して変更は手元に残す
+git reset --soft HEAD~1
+
+# 追跡されていないファイルを消す前に、消える対象を確認する
+git clean -nd
+
+# 追跡されていないファイルを実際に消す
+git clean -fd
+
+# ローカルの変更をGitに無視させる（設定ファイルの一時改変など）
+git update-index --assume-unchanged <file>
+
+# 上の無視を解除する
+git update-index --no-assume-unchanged <file>
+
+# その行を最後に変えたのは誰か
+git blame <file>
+
+# 消したコミットを探す（reset事故のリカバリ）
+git reflog
+
+# 壊れた原因のコミットを二分探索で特定する
+git bisect start
+
+# 別ブランチのコミットだけ持ってくる
+git cherry-pick <commit>
+
+# リモートのURLを確認する
+git remote -v
+
+# リモートをサブアカウントのSSHホスト別名に張り替える
+git remote set-url origin git@github-sub:<owner>/<repo>.git
+
+# 同じリポジトリを別ブランチで並行して開く
+git worktree add ../<dir> <branch>
+
+# タグを打ってpushする
+git tag -a <tag> -m "<message>" && git push origin <tag>
+
+# GitHubでこのリポジトリをブラウザで開く
+gh repo view --web
+
+# プルリクエストを作る
+gh pr create --fill
+
+# プルリクエストの一覧を見る
+gh pr list
+
+# CIの実行結果を見る
+gh run list --limit 10
+
+$ file: git ls-files
+$ branch: git branch --format="%(refname:short)"
+$ commit: git log --oneline -n 50 --- --column 1
+$ tag: git tag
+$ type: echo -e "feat\nfix\ndocs\nstyle\nrefactor\nchore\ntest\nperf"

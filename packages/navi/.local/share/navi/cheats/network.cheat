@@ -1,0 +1,66 @@
+% network, port, dns, curl
+
+# そのポートを掴んでいるプロセスを調べる（Address already in use のとき）
+lsof -nP -iTCP:<port> -sTCP:LISTEN
+
+# そのポートを掴んでいるプロセスを止める
+kill -9 $(lsof -t -iTCP:<port> -sTCP:LISTEN)
+
+# 待ち受けているポートを全部見る
+lsof -nP -iTCP -sTCP:LISTEN
+
+# このMacのローカルIPアドレスを見る（Wi-Fi）
+ipconfig getifaddr en0
+
+# グローバルIPアドレスを見る
+curl -s ifconfig.me
+
+# DNSを引く（そのドメインがどのIPを指しているか）
+dig +short <domain>
+
+# DNSの応答を詳しく見る（伝播確認・レコード種別指定）
+dig <domain> <record_type>
+
+# 権威サーバーに直接聞く（キャッシュを迂回してDNS変更を確認する）
+dig @8.8.8.8 <domain>
+
+# DNSキャッシュを消す（設定変更が反映されないとき）
+sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder
+
+# 疎通確認（Ctrl+Cで止める）
+ping -c 4 <domain>
+
+# 経路をたどる（どこで詰まっているか）
+traceroute <domain>
+
+# ヘッダーだけ見る（ステータスコード・リダイレクト先の確認）
+curl -I <url>
+
+# リダイレクトを追いかけて最終的な結果を見る
+curl -IL <url>
+
+# 応答時間だけ測る
+curl -s -o /dev/null -w "time_total: %{time_total}s\nhttp_code: %{http_code}\n" <url>
+
+# JSONをPOSTする
+curl -X POST -H "Content-Type: application/json" -d '<json>' <url>
+
+# JSONを整形して見る
+curl -s <url> | jq
+
+# ファイルをダウンロードする（元のファイル名で保存）
+curl -LO <url>
+
+# TLS証明書の有効期限を確認する
+echo | openssl s_client -connect <domain>:443 2>/dev/null | openssl x509 -noout -dates
+
+# ポートが開いているか確認する
+nc -zv <domain> <port>
+
+# 今の通信状況をまとめて見る
+netstat -an | grep LISTEN
+
+# Wi-Fiのネットワーク情報を見る
+networksetup -getinfo Wi-Fi
+
+$ record_type: echo -e "A\nAAAA\nCNAME\nMX\nTXT\nNS\nSOA"

@@ -150,6 +150,8 @@ make_dir=(
     "$HOME/Library/Application Support/Code/User"
     # 同上：Claude Code未起動のマシンで履歴・キャッシュがリポジトリに入るのを防ぐ
     "$HOME/.claude"
+    # 同上：cheatsごとfoldingされると navi repo add のクローンがリポジトリ内に降ってくる
+    "$XDG_DATA_HOME/navi/cheats"
 )
 for dir in "${make_dir[@]}"; do
     ensure_dir "$dir"

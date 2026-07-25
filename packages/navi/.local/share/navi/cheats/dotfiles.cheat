@@ -1,0 +1,67 @@
+% dotfiles, mydotfiles
+
+# dotfiles健診：壊れたリンク・実体のない設定・Brewfile差分を検査する（棚卸しはまずこれ）
+~/.local/bin/doctor.sh
+
+# シンボリックリンクを張り直す（パッケージ追加後・リンクが壊れたとき）
+~/.local/bin/setup-links.sh
+
+# 指定パッケージのリンクだけ外す
+~/.local/bin/setup-links.sh --unlink <package>
+
+# 全パッケージのリンクを外す（stowから完全に切り離す）
+~/.local/bin/setup-links.sh --unlink-all
+
+# 全パッケージマネージャを更新（Homebrew + zinit + mise）
+~/.local/bin/update.sh --all
+
+# 更新内容を先に確認する（何も変更しない）
+~/.local/bin/update.sh --dry-run --all
+
+# Homebrewだけ更新
+~/.local/bin/update.sh --homebrew
+
+# zinitプラグインだけ更新
+~/.local/bin/update.sh --zinit
+
+# miseの言語ランタイムだけ更新
+~/.local/bin/update.sh --mise
+
+# パッケージマネージャ本体だけ更新（中身のパッケージは触らない）
+~/.local/bin/update.sh --manager-only --all
+
+# 入っているパッケージ・プラグインだけ更新（マネージャ本体は触らない）
+~/.local/bin/update.sh --packages-only --all
+
+# 確認プロンプトを飛ばして更新（無人実行向け）
+~/.local/bin/update.sh --all --force
+
+# 更新スクリプトのオプション一覧
+~/.local/bin/update.sh --help
+
+# このマシン固有のローカル設定を用意する（gitconfig.localなど）
+~/.dotfiles/scripts/setup-local-config.sh
+
+# macOSのシステム設定を一括適用（Caps Lock→Control等。要ログアウト）
+~/.dotfiles/scripts/macos-defaults.sh
+
+# Brewfileから一括インストール
+brew bundle --file ~/.dotfiles/homebrew/Brewfile
+
+# Brewfileと実際のインストール状況の差分を見る
+brew bundle check --verbose --file ~/.dotfiles/homebrew/Brewfile
+
+# dotfilesリポジトリへ移動
+cd ~/.dotfiles
+
+# dotfilesの変更状況を確認（コミット前に）
+git -C ~/.dotfiles status && git -C ~/.dotfiles diff
+
+# パッケージ一覧を見る（1ツール1パッケージ）
+ls ~/.dotfiles/packages
+
+# 自作スクリプトのmanページを読む（man/man1にあるものだけ）
+man <script>
+
+$ package: ls ~/.dotfiles/packages
+$ script: ls ~/.dotfiles/man/man1 | sed 's/\.1$//'

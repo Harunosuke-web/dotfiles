@@ -1,0 +1,77 @@
+% macos, defaults, mac
+
+# macOSのバージョンを見る
+sw_vers
+
+# システム設定の値を読む（キーが分かっているとき）
+defaults read <domain> <key>
+
+# あるアプリの設定を全部読む（キーを探すとき）
+defaults read <domain>
+
+# 設定を書き換える（このリポジトリの macos-defaults.sh に追記する前の実験用）
+defaults write <domain> <key> -bool true
+
+# 設定を既定に戻す
+defaults delete <domain> <key>
+
+# Finderを再起動する（defaults変更を反映させる）
+killall Finder
+
+# Dockを再起動する（defaults変更を反映させる）
+killall Dock
+
+# 隠しファイルの表示を切り替える（Finder）
+defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder
+
+# ターミナルからQuick Lookでプレビューする
+qlmanage -p <file> 2>/dev/null
+
+# ダウンロードしたアプリの隔離属性を外す（「開発元を検証できません」対策）
+xattr -dr com.apple.quarantine <path>
+
+# ファイルに付いている拡張属性を見る
+xattr -l <file>
+
+# Spotlightのインデックスで検索する（findより速い）
+mdfind -name "<name>"
+
+# ファイルの詳細情報を見る（種別・作成日など）
+mdls <file>
+
+# スリープさせない（1時間だけ）
+caffeinate -d -t 3600
+
+# バッテリーの状態を見る
+pmset -g batt
+
+# 電源関連の設定を全部見る
+pmset -g
+
+# 利用できるOSアップデートを一覧する
+softwareupdate --list
+
+# ディスクの一覧を見る
+diskutil list
+
+# アプリを終了させる（名前で）
+osascript -e 'quit app "<app>"'
+
+# 通知を出す（長い処理の完了通知に）
+osascript -e 'display notification "<message>" with title "Terminal"'
+
+# 喋らせる（処理完了の合図に）
+say "<message>"
+
+# クリップボードの中身をファイルに保存する
+pbpaste > <file>
+
+# 常駐サービスの一覧を見る
+launchctl list | grep -v "^-" | head -30
+
+# 現在のキーリピート設定を見る
+defaults read -g InitialKeyRepeat; defaults read -g KeyRepeat
+
+$ file: fd --type=f --color=always
+$ path: fd --color=always
+$ domain: defaults domains | tr ',' '\n' | sed 's/^ //'

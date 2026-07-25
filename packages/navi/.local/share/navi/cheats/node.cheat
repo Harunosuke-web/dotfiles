@@ -1,0 +1,69 @@
+% node, npm, mise
+
+# 今どのNodeを使っているか（トラブル調査の第一手）
+node -v && which node
+
+# Nodeが何個どこに入っているか全部見る（重複インストールの調査）
+which -a node
+
+# LTS版のNodeを入れてマシン全体の既定にする
+mise use -g node@lts
+
+# このプロジェクトだけNodeのバージョンを固定する（mise.tomlに記録される）
+mise use node@<version>
+
+# miseが管理しているランタイム一覧を見る
+mise ls
+
+# 入れられるバージョンを探す
+mise ls-remote node | tail -20
+
+# miseの状態を診断する（PATHが通っていないときなど）
+mise doctor
+
+# 依存関係を総入れ替えする（八割の不調はこれで直る）
+rm -rf node_modules && npm install
+
+# 依存を入れる
+npm install
+
+# グローバルに入れる（マシン全体で使うコマンド。まれ）
+npm install -g <package>
+
+# 入れずにその場で1回だけ実行する
+npx <package>
+
+# グローバルの置き場を確認する（-g したのに command not found のとき）
+npm prefix -g
+
+# グローバルに入っている実行ファイルを見る
+ls $(npm prefix -g)/bin
+
+# グローバルに入れたパッケージ一覧を見る
+npm ls -g --depth=0
+
+# 古くなった依存を一覧する
+npm outdated
+
+# package.jsonに定義されたスクリプト一覧を見る
+npm run
+
+# 開発サーバーを起動する（止めるのは Ctrl+C）
+npm run dev
+
+# ビルドする
+npm run build
+
+# 依存の脆弱性を確認する
+npm audit
+
+# キャッシュを掃除する（インストールが壊れるとき）
+npm cache clean --force
+
+# あるパッケージがなぜ入っているか（誰が依存しているか）辿る
+npm ls <package>
+
+# brewの他のツールがnodeに依存していないか確認する（brew uninstall前に）
+brew uses --installed node
+
+$ version: echo -e "lts\n24\n22\n20"

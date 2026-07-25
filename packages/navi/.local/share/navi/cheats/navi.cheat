@@ -1,0 +1,44 @@
+% navi, cheatsheet
+
+# チートシート集を開く（プロンプトからは Ctrl+N でも呼べる）
+navi
+
+# キーワードを入れた状態で開く
+navi --query "<keyword>"
+
+# 実行せずにコマンドを表示するだけ
+navi --print
+
+# 自分のcheatファイルを置いている場所へ移動する（実体はdotfiles）
+cd ~/.dotfiles/packages/navi/.local/share/navi/cheats
+
+# cheatファイルを新しく作る
+$EDITOR ~/.dotfiles/packages/navi/.local/share/navi/cheats/<name>.cheat
+
+# 既存のcheatファイルを編集する
+$EDITOR ~/.dotfiles/packages/navi/.local/share/navi/cheats/<cheat>
+
+# naviが実際に読んでいるcheatの場所を確認する
+navi info cheats-path
+
+# naviが読んでいる設定ファイルの場所を確認する
+navi info config-path
+
+# 手元にないコマンドの使い方をtldrから引く
+navi --tldr <command>
+
+# cheat.shから引く（tldrに無いとき）
+navi --cheatsh <command>
+
+# navi自身の書き方チートシートを見る
+navi fn welcome
+
+# タグで絞り込む（例：gitのものだけ）
+navi --tag-rules <tag>
+
+# cheatファイルの書式：% でタグ、# で説明、その次の行がコマンド、$ で候補リスト
+$EDITOR ~/.dotfiles/packages/navi/.local/share/navi/cheats/navi.cheat
+
+$ cheat: ls ~/.dotfiles/packages/navi/.local/share/navi/cheats
+$ tag: grep -h "^%" ~/.dotfiles/packages/navi/.local/share/navi/cheats/*.cheat | sed 's/^% //' | tr ',' '\n' | sed 's/^ //' | sort -u
+$ command: echo "${(F)commands}"

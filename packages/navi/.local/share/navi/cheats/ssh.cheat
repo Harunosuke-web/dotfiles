@@ -1,0 +1,86 @@
+% ssh, scp, rsync
+
+# SSH設定を編集する（実体はdotfilesリポジトリ側）
+$EDITOR ~/.dotfiles/packages/ssh/.ssh/config
+
+# 設定に書いたホスト別名の一覧を見る
+grep -i "^Host " ~/.ssh/config
+
+# GitHubへの接続を確認する（どのアカウントとして認識されているか分かる）
+ssh -T git@github.com
+
+# サブアカウントのホスト別名で接続を確認する
+ssh -T git@github-sub
+
+# 認証で何が起きているかを追う（鍵が違うとき・弾かれるときの調査）
+ssh -vT git@github.com
+
+# あるホストに対して実際に適用される設定を全部表示する
+ssh -G <host>
+
+# 1Passwordエージェントが持っている鍵の一覧を見る
+SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock" ssh-add -l
+
+# 新しい鍵を作る（ED25519。用途をコメントに残す）
+ssh-keygen -t ed25519 -C "<comment>" -f ~/.ssh/<keyname>
+
+# 古い環境向けにRSA鍵を作る（ED25519が使えないサーバー用）
+ssh-keygen -t rsa -b 4096 -C "<comment>"
+
+# 公開鍵をクリップボードにコピーする（GitHubやサーバーに貼る）
+pbcopy < ~/.ssh/<pubkey>
+
+# 鍵のフィンガープリントを見る（登録済みの鍵と同一か照合する）
+ssh-keygen -lf ~/.ssh/<pubkey>
+
+# 公開鍵をサーバーに登録する（パスワード認証が有効なうちに）
+ssh-copy-id -i ~/.ssh/<pubkey> <user>@<host>
+
+# ホスト鍵が変わったと怒られたとき、該当行をknown_hostsから消す
+ssh-keygen -R <host>
+
+# 権限エラーで鍵が拒否されるときに直す（600でないと使われない）
+chmod 600 ~/.ssh/<keyname> && chmod 700 ~/.ssh
+
+# 踏み台サーバー経由で接続する
+ssh -J <jump_host> <host>
+
+# リモートのポートを手元に持ってくる（手元の8080→リモートの80）
+ssh -L 8080:localhost:80 <host>
+
+# 手元のポートをリモートに公開する（逆トンネル）
+ssh -R 8080:localhost:3000 <host>
+
+# ポートフォワードだけ張る（シェルは開かない、バックグラウンド）
+ssh -fNL 8080:localhost:80 <host>
+
+# コマンドを1つだけ実行して抜ける
+ssh <host> "<command>"
+
+# 接続が切れないようにする（対話セッションを長持ちさせる）
+ssh -o ServerAliveInterval=60 <host>
+
+# ファイルをリモートへ送る
+scp <file> <host>:<remote_path>
+
+# リモートからファイルを取ってくる
+scp <host>:<remote_path> .
+
+# ディレクトリごと送る
+scp -r <dir> <host>:<remote_path>
+
+# 差分だけ同期する（まず何が起きるか確認）
+rsync -avhn --progress <src>/ <host>:<remote_path>/
+
+# 差分だけ同期する（実行）
+rsync -avh --progress <src>/ <host>:<remote_path>/
+
+# .gitを除いて同期する
+rsync -avh --exclude=".git" <src>/ <host>:<remote_path>/
+
+$ host: grep -i "^Host " ~/.ssh/config | awk '{print $2}' | grep -v "^\*$"
+$ jump_host: grep -i "^Host " ~/.ssh/config | awk '{print $2}' | grep -v "^\*$"
+$ pubkey: ls ~/.ssh | grep "\.pub$"
+$ file: fd --type=f --color=always
+$ dir: fd --type=d --color=always
+$ src: fd --type=d --color=always

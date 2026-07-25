@@ -1,0 +1,60 @@
+% brew, homebrew
+
+# 探す（入れる前に名前を確認）
+brew search <query>
+
+# 何をするツールか確認する（入れる前に読む）
+brew info <query>
+
+# 入れて試す（1ヶ月ルール：使い続けたらBrewfileに書く）
+brew install <query>
+
+# GUIアプリを入れる
+brew install --cask <query>
+
+# 自分で明示的に入れたものだけ見る（依存を除く。棚卸しの起点）
+brew leaves
+
+# 入っているものを全部見る
+brew list --formula
+
+# 入っているGUIアプリを見る
+brew list --cask
+
+# そのツールに依存しているものを調べる（消す前に必ず確認）
+brew uses --installed <formula>
+
+# そのツールが何に依存しているか木で見る
+brew deps --tree <formula>
+
+# 消す
+brew uninstall <formula>
+
+# 誰からも必要とされていない依存を消す
+brew autoremove
+
+# 古いバージョンとキャッシュを掃除する
+brew cleanup
+
+# 古くなったものを一覧する
+brew outdated
+
+# Brewfileと実環境の差分を見る（doctor.shもこれを見ている）
+brew bundle check --verbose --file ~/.dotfiles/homebrew/Brewfile
+
+# Brewfileから一括インストールする
+brew bundle --file ~/.dotfiles/homebrew/Brewfile
+
+# 今の環境を書き出して現Brewfileと比べる（Brewfileは厳選リストなので上書きしない）
+brew bundle dump --describe --file=/tmp/Brewfile.now && diff ~/.dotfiles/homebrew/Brewfile /tmp/Brewfile.now
+
+# Homebrew自体の不調を診断する
+brew doctor
+
+# 常駐サービスの状態を見る
+brew services list
+
+# インストール先を確認する
+brew --prefix <formula>
+
+$ formula: brew leaves

@@ -1,0 +1,27 @@
+% mytools, tmux, template
+
+# tmuxセッションを切り替える（fzfで選択・プレビュー付き）
+tmux-switch-session
+
+# tmuxセッションを削除する（現在のセッションは保護される）
+tmux-kill-session
+
+# プロジェクトを選んでtmuxセッションを作る／切り替える（ポップアップ）
+tmux-sessionizer-popup
+
+# lfでファイル閲覧し、抜けた場所へtmuxのカレントディレクトリを移す
+lf-tmux
+
+# PATHの通った全コマンドをfzfで探す（manプレビュー付き）
+fzf-find-executable
+
+# 使えるテンプレート一覧を見る
+use-template --list
+
+# テンプレートを今のディレクトリに展開する
+use-template <template>
+
+# テンプレート展開で何がコピーされるかだけ見る
+use-template --dry-run <template>
+
+$ template: ls ~/.dotfiles/packages/templates/templates

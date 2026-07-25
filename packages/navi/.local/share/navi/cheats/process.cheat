@@ -1,0 +1,79 @@
+% process, disk, permission, system
+
+# 名前でプロセスを探す
+ps aux | grep -i "<name>" | grep -v grep
+
+# プロセスを止める（PIDを指定）
+kill <pid>
+
+# 止まらないプロセスを強制終了する
+kill -9 <pid>
+
+# コマンド名にマッチするプロセスをまとめて止める（まず対象を確認）
+pgrep -fl "<pattern>"
+
+# コマンド名にマッチするプロセスをまとめて止める（実行）
+pkill -f "<pattern>"
+
+# CPUを食っている順に見る
+ps aux | sort -nrk 3 | head -10
+
+# メモリを食っている順に見る
+ps aux | sort -nrk 4 | head -10
+
+# ディスクの空きを見る
+df -h
+
+# 今の場所で容量を食っているものを大きい順に見る
+du -sh * | sort -h
+
+# 深追いせずディレクトリ単位で容量を見る
+du -h -d 1 . | sort -h
+
+# 巨大ファイルを探す（100MB超）
+fd --type=f --size +100m
+
+# ファイルの権限を確認する
+ls -l <file>
+
+# 実行権限を付ける（自作スクリプトを作ったとき）
+chmod +x <file>
+
+# 自分だけが読み書きできるようにする（鍵・秘密情報）
+chmod 600 <file>
+
+# ディレクトリを自分専用にする
+chmod 700 <dir>
+
+# 所有者を自分に変える
+sudo chown $(whoami) <file>
+
+# シンボリックリンクを張る
+ln -s <target> <linkname>
+
+# シンボリックリンクの指し先を確認する
+readlink -f <file>
+
+# 壊れたシンボリックリンクを探す（ホーム直下）
+find -L ~ -maxdepth 1 -type l
+
+# 環境変数を全部見る（名前順）
+env | sort
+
+# PATHを1行ずつ見る（順序がトラブルの原因になる）
+echo $PATH | tr ':' '\n'
+
+# そのコマンドが何であるか調べる（エイリアス・関数・実体）
+type -a <command>
+
+# 今の場所を開いているプロセスを調べる（アンマウントできないとき）
+lsof +D . 2>/dev/null | head
+
+# 起動してからの経過時間と負荷を見る
+uptime
+
+$ file: fd --type=f --color=always
+$ dir: fd --type=d --color=always
+$ target: fd --color=always
+$ pid: ps axo pid=,comm= --- --column 1
+$ command: echo "${(F)commands}"
