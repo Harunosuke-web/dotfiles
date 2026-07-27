@@ -31,7 +31,7 @@ export NPM_CONF_DIR="$XDG_CONFIG_HOME/npm"  # NPM_CONFIG_* を避けた名前（
 export NPM_DATA_DIR="$XDG_DATA_HOME/npm"
 export NPM_CACHE_DIR="$XDG_CACHE_HOME/npm"
 export NPM_CONFIG_USERCONFIG="$NPM_CONF_DIR/npmrc"
-export PATH="$NPM_DATA_DIR/bin:$PATH"  # npm install -g の実行ファイル置き場
+# NPM_DATA_DIR/bin の PATH追加は .zprofile（PATH集約先）へ移動
 
 ### Python ###
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/startup.py"

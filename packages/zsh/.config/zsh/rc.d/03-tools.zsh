@@ -39,11 +39,5 @@ export LESSHISTFILE='-'
 ### GPG ###
 export GPG_TTY="$(tty)"
 
-### Editor ###
-export EDITOR="vi"
-command -v vim >/dev/null && EDITOR="vim"
-command -v nvim >/dev/null && EDITOR="nvim"
-export GIT_EDITOR="$EDITOR"
-
 ### Docker config ###
 # export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"

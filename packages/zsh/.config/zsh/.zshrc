@@ -62,18 +62,9 @@ fi
 
 source "${ZINIT[HOME_DIR]}/bin/zinit.zsh"
 
-### PATH Configuration ###
-typeset -U path
+### fpath (completion function search path) ###
+# PATH本体は .zprofile で確定する。ここは補完(compinit)用の fpath のみ。
 typeset -U fpath
-
-path=(
-  "$HOME/.local/bin"(N-/)       # User binaries (highest priority)
-  "$HOME/.local/share/npm/bin"(N-/)
-  "$path[@]"                    # Existing PATH (includes mise-managed paths)
-  "/opt/homebrew/bin"(N-/)      # Homebrew binaries
-  "/opt/homebrew/sbin"(N-/)     # Homebrew system binaries
-  "/Library/Apple/usr/bin"(N-/) # Apple developer tools
-)
 
 fpath=(
   "$XDG_CONFIG_HOME/zsh/completions"(N-/)
