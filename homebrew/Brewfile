@@ -72,7 +72,7 @@ cask "font-hack-nerd-font"  # Patched font with developer icons
 cask "font-sauce-code-pro-nerd-font"  # Patched coding font with icons
 cask "google-chrome"  # Web browser by Google
 cask "google-drive"  # Google's cloud storage client
-cask "google-japanese-ime"  # Japanese input method editor
+# cask "google-japanese-ime"  # Japanese input method editor
 cask "hammerspoon"  # Lua-scriptable macOS automation (auto-switches IME to English on app change)
 # cask "iterm2"  # Terminal emulator for macOS
 cask "keyboardcleantool"  # Disable keyboard for cleaning
@@ -87,11 +87,10 @@ cask "visual-studio-code"  # Code editor by Microsoft
 ### --- Apps from AppStore --- ###
 mas "Amphetamine", id: 937984704  # Keep Mac awake utility
 mas "Dropover", id: 1355679052  # Drag and drop shelf utility
-# mas "HazeOver", id: 430798174  # Distraction dimmer for focus
+mas "HazeOver", id: 430798174  # Distraction dimmer for focus
 # mas "Kindle", id: 302584613  # Amazon's e-book reader
 # mas "LINE", id: 539883307  # Messaging app
 # mas "Magnet", id: 441258766  # Window management tool
-# mas "NotePlan", id: 1505432629  # Note-taking and task management
 mas "ReminderBridge", id: 6745492181  # Reminder synchronization tool
 mas "RunCat", id: 1429033973  # CPU usage monitor in menu bar
 # mas "Xcode", id: 497799835  # Apple's IDE for iOS/macOS development
