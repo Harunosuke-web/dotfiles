@@ -15,7 +15,7 @@ setup_error_handling
 /bin/bash "$CUR_DIR/macos-defaults.sh"
 /bin/bash "$CUR_DIR/setup-mise.sh"
 /bin/bash "$CUR_DIR/setup-zinit.sh"
-# /bin/bash "$CUR_DIR/setup-nvim.sh"
+/bin/bash "$CUR_DIR/setup-nvim.sh" # リポジトリが未クローンなら警告して読み飛ばす
 /bin/bash "$CUR_DIR/setup-login.sh"
 
 echo ✨ All Done!
