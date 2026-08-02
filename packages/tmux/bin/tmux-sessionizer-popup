@@ -118,6 +118,12 @@ if [ -n "$TMUX" ]; then
         tmux switch-client -t "$session_name"
     fi
 else
-    # tmux外の場合：セッションを作成してattach（-Aで既存があればattach）
-    exec tmux new-session -A -s "$session_name" -c "$selected"
+    # tmux外の場合：セッションを作成してattach
+    #   -A  既存があればattachする
+    #   -D  そのセッションに繋いでいる他のクライアントを切り離す
+    #
+    # -D が無いと、別の端末（例: Alacritty と Ghostty）から同じセッションへ
+    # 繋いだ時にサイズの違うクライアントが同居する。window-size = latest では
+    # 最後に操作した方へ交互にリサイズが走り、ペインが伸縮して点滅する
+    exec tmux new-session -A -D -s "$session_name" -c "$selected"
 fi
