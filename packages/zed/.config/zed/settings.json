@@ -28,8 +28,8 @@
   "preview_tabs": {
     "enabled": false
   },
-  "buffer_font_family": "Hack Nerd Font",
-  "ui_font_family": "Hack Nerd Font",
+  "buffer_font_family": "UDEV Gothic 35NF",
+  "ui_font_family": "UDEV Gothic 35NF",
   "icon_theme": "Zed (Default)",
   "telemetry": {
     "diagnostics": false,
