@@ -89,7 +89,7 @@ export EDITOR="vi"
 command -v vim >/dev/null && EDITOR="vim"
 command -v nvim >/dev/null && EDITOR="nvim"
 export GIT_EDITOR="$EDITOR"
-export TERMINAL="alacritty"
+export TERMINAL="ghostty"
 # export BROWSER="brave"
 
 ### Shell Options ###

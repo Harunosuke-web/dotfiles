@@ -44,6 +44,7 @@ brew "openssl@3"  # Cryptography and SSL/TLS toolkit
 # brew "python@3.13"  # Python programming language version 3.13 (managed by mise)
 brew "starship"  # Cross-shell customizable prompt
 brew "tmux"  # Terminal multiplexer
+brew "tree-sitter-cli"  # Parser generator CLI (required by nvim-treesitter main branch)
 brew "trash", link: true  # Move files to trash from command line
 brew "wget"  # Internet file retriever
 brew "zsh"  # Z shell with extended features
@@ -69,7 +70,9 @@ cask "cleanshot"  # Screenshot and screen recording tool
 cask "discord"  # Voice and text communication for gaming
 cask "dropbox"  # Cloud storage and file synchronization
 cask "font-hack-nerd-font"  # Patched font with developer icons
-cask "font-sauce-code-pro-nerd-font"  # Patched coding font with icons
+cask "font-hackgen-nerd"  # Japanese-capable patched font (Hack + GenJyuu Gothic)
+cask "font-udev-gothic-nf"  # Japanese-capable patched font (JetBrains Mono + BIZ UDGothic)
+cask "ghostty"  # GPU-accelerated terminal with correct full-width glyph handling
 cask "google-chrome"  # Web browser by Google
 cask "google-drive"  # Google's cloud storage client
 # cask "google-japanese-ime"  # Japanese input method editor

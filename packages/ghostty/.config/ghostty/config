@@ -1,0 +1,52 @@
+# ─── フォント ────────────────────────────────────────────────
+# 3:5 比率の派生版で Nerd Font のアイコンを含む。
+# Alacritty ではこの比率で全角幅が破綻したが、Ghostty は正しく扱える
+font-family = "UDEV Gothic 35NF"
+font-size = 15
+
+# ─── ウィンドウ ──────────────────────────────────────────────
+# タイトルバー・枠・信号機ボタンを全て除去する。
+# macOS の仕様でタブ機能も無効になるが、分割・タブは tmux が担うため問題ない
+window-decoration = none
+
+window-padding-x = 6
+window-padding-y = 6
+# 高さがセル高で割り切れない時、余りを下端に溜めず四辺へ均等配分する。
+# false のままだと下部だけ余白が広く見える
+window-padding-balance = true
+
+# ─── カーソル ────────────────────────────────────────────────
+cursor-style = bar
+cursor-style-blink = false
+
+# ─── 配色（Alacritty の設定から移植）─────────────────────────
+background = #00001f
+foreground = #abb2bf
+
+palette = 0=#141313
+palette = 1=#ee5396
+palette = 2=#00ff00
+palette = 3=#f3f89d
+palette = 4=#c9a8fa
+palette = 5=#ff92d0
+palette = 6=#99ecfd
+palette = 7=#e5e9f0
+palette = 8=#282828
+palette = 9=#ee5396
+palette = 10=#00ff00
+palette = 11=#f3f89d
+palette = 12=#c9a8fa
+palette = 13=#ff92d0
+palette = 14=#99ecfd
+palette = 15=#eceff4
+
+selection-background = #414d58
+selection-foreground = #f8f8f2
+cursor-color = #eceff4
+cursor-text = #3b4252
+
+# ─── 挙動 ────────────────────────────────────────────────────
+scrollback-limit = 10000000
+copy-on-select = true
+# 左の option のみ Alt として扱う（右 option は日本語入力などに残す）
+macos-option-as-alt = left

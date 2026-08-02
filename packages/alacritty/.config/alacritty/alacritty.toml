@@ -48,11 +48,11 @@ shape = "Beam"
 size = 15.0
 
 [font.bold]
-family = "Hack Nerd Font"
-style = "Regular"
+family = "HackGen Console NF"
+style = "Bold"
 
 [font.bold_italic]
-family = "Ricty Nerd Font"
+family = "HackGen Console NF"
 style = "Bold Italic"
 
 [font.glyph_offset]
@@ -60,11 +60,11 @@ x = 0
 y = 0
 
 [font.italic]
-family = "Ricty Nerd Font"
+family = "HackGen Console NF"
 style = "Italic"
 
 [font.normal]
-family = "Hack Nerd Font"
+family = "HackGen Console NF"
 style = "Regular"
 
 [font.offset]
