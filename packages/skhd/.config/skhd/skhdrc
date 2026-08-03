@@ -43,12 +43,13 @@ alt + shift - r : yabai -m space --rotate 270
 # Window: フォーカス
 ###########################################################
 
-alt + shift - k : yabai -m window --focus stack.prev \
-    || yabai -m window --focus prev
-alt + shift - j : yabai -m window --focus stack.next \
-    || yabai -m window --focus next
-alt + shift - h : yabai -m window --focus west
-alt + shift - l : yabai -m window --focus east
+# bsp（タイル）配置では画面上の位置関係で移動し、stack や全ウィンドウを
+# フロートさせている時（alt + shift - c）は位置を無視して全ウィンドウを
+# ループ巡回する。判定は focus_dir.sh 側で行う
+alt + shift - h : ~/.config/yabai/focus_dir.sh west
+alt + shift - j : ~/.config/yabai/focus_dir.sh south
+alt + shift - k : ~/.config/yabai/focus_dir.sh north
+alt + shift - l : ~/.config/yabai/focus_dir.sh east
 alt + shift - tab : yabai -m window --focus stack.recent \
     || yabai -m window --focus recent
 
@@ -74,8 +75,9 @@ alt + shift - 0x21 : yabai -m window --resize left:-40:0 \
 alt + shift - 0x1E : yabai -m window --resize right:40:0 \
     || yabai -m window --resize left:40:0
 
-# フォーカス中のウィンドウをフロート化して中央に置く。もう一度で元に戻す
-alt + shift - c : ~/.config/yabai/toggle_float_focus.sh
+# スペースの全ウィンドウをフロート化して中央に重ねる。もう一度で元に戻す。
+# 重なった状態のまま alt + shift - j / k で切り替えられる
+alt + shift - c : ~/.config/yabai/toggle_float_space.sh
 
 ###########################################################
 # Display
