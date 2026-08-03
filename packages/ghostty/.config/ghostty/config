@@ -21,7 +21,9 @@ cursor-style-blink = false
 
 # ─── 配色（Alacritty の設定から移植）─────────────────────────
 background = #00001f
-foreground = #abb2bf
+# 既定より白寄りにしている。IME の変換前テキストはこの色で描かれ、
+# tmux 側で本文を 25% 沈めているため、未確定の文字だけが明るく浮く
+foreground = #cad2e1
 
 palette = 0=#141313
 palette = 1=#ee5396
