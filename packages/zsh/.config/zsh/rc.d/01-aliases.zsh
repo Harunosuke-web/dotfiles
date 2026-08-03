@@ -78,8 +78,15 @@ alias make='make -j$(($(nproc)+1))'
 ### wget ###
 command -v wget >/dev/null && alias wget='wget --hsts-file="$XDG_STATE_HOME/wget-hsts"'
 
-# nvim: VIMINIT環境変数を無効化してinit.luaを使用
+# nvim: VIMINIT環境変数を無効化してinit.luaを使用。
+# .zshenv の VIMINIT は本物の vim に vim/vimrc を読ませるためのもので、
+# nvim も同じ変数を見てしまうため、ここで空にして init.lua を使わせる
 alias nvim='VIMINIT= nvim'
+
+# vim と打った時も nvim を開く。設定を nvim 側に一本化しているため。
+# nvim が無い環境では素の vim のまま
+# 本物の vim を使いたい時は \vim または command vim
+command -v nvim >/dev/null && alias vim='VIMINIT= nvim'
 
 ### Suffix alias ###
 # alias -s {bz2,gz,tar,xz}='tar xvf'
