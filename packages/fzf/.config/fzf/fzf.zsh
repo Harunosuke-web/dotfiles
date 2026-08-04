@@ -67,10 +67,27 @@ EOF
         --bind 'Ctrl-\:toggle-preview' \
         --bind 'ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down'"
 
-    # export FZF_TMUX_OPTS="-p 90% -y45"
     # 幅・高さの両方を指定して中央90%で表示（幅だけ指定だと高さが半端で上寄りになる）。
     # fzfピッカー（fz/find_cd/ghq/セッション切替・削除/履歴/^Fセッション選択）に効く。
-    export FZF_TMUX_OPTS="-p 90%,90%"
+    #
+    # -y はステータスラインを除いた領域の中央に置く。既定では上1行・下4行
+    # と上に寄っていた（53行の画面の場合）。
+    #
+    # 注意が2つある。
+    #
+    #   1. tmux の -y は popup の「下端」の行を指す（-x は左端）。上端を
+    #      渡すと popup が画面に収まらず、上端へ押し戻されて無視される。
+    #   2. popup_height は -y の評価時点ではまだ空。-h と同じ 90% から
+    #      自分で出す。
+    #
+    #   上端 = 1 + (client_height - 1 - popup_height) / 2
+    #   下端 = 上端 + popup_height
+    #
+    # 画面の大きさが変わっても tmux が計算し直す。先頭の 1 は
+    # ステータスラインの行数で、status-position top が前提
+    __FZF_POPUP_H='#{e|/:#{e|*:#{client_height},90},100}'
+    __FZF_POPUP_TOP="#{e|+:1,#{e|/:#{e|-:#{e|-:#{client_height},1},${__FZF_POPUP_H}},2}}"
+    export FZF_TMUX_OPTS="-p 90%,90% -y#{e|+:${__FZF_POPUP_TOP},${__FZF_POPUP_H}}"
 
 else
 
