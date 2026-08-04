@@ -63,7 +63,8 @@ diffb() { command diff "$@" | bat --paging=never --plain --language=diff; }
 alias diffall='diffb --new-line-format="+%L" --old-line-format="-%L" --unchanged-line-format=" %L"'
 
 ### bat ###
-alias cat='bat --paging=never --theme="Visual Studio Dark+"'
+# テーマは指定しない。bat の設定ファイル（packages/bat）で全体を揃えてある
+alias cat='bat --paging=never'
 alias batman='bat --language=man --plain'
 
 ### CMake ###
