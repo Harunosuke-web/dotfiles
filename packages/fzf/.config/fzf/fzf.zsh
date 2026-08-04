@@ -111,8 +111,31 @@ EOF
                 --bind 'ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down'"
 fi
 
-### --- alias --- ###
-alias fzf="$(__fzfcmd) ${FZF_DEFAULT_OPTS-} --preview-window 'hidden'"
+### --- fzf 本体 --- ###
+# 素の fzf も tmux の popup で開き、プレビューは畳んでおく。
+#
+# エイリアスにはしない。zsh はエイリアスを解析時に展開するため、本体に
+# 改行やブレースが入っていると、`| fzf ...` を書いたファイルを読み直した
+# 時にその位置へ差し込まれて構文が壊れる。
+#
+#   02-functions.zsh:4: parse error near `}'
+#   02-functions.zsh:5: unmatched "
+#
+# 実際に2つ入っていた。FZF_DEFAULT_OPTS（ヒアドキュメント由来で改行入り）と、
+# FZF_TMUX_OPTS の -y#{e|...}（{a,b} はブレース展開の対象）。起動時は
+# 02-functions.zsh の方が先に読まれてエイリアスがまだ無いため、source し
+# 直した時だけ表面化していた。
+#
+# 関数なら本体は解析対象にならないので、どちらも安全に扱える。
+# FZF_DEFAULT_OPTS は export してあり fzf 自身が読むので渡さない。
+# __fzfcmd は "fzf-tmux <オプション> -- " のように複数語を返すため分割する。
+# command を通すのは、TMUX の外で __fzfcmd が "fzf" を返した時に
+# この関数自身を呼んで無限に回るのを避けるため
+fzf() {
+  local -a cmd
+  cmd=( ${=$(__fzfcmd)} )
+  command "${cmd[@]}" --preview-window 'hidden' "$@"
+}
 
 ### --- options --- ###
 export FZF_CTRL_R_OPTS=$(
