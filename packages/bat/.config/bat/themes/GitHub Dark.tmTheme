@@ -11,8 +11,11 @@
         <dict>
           <key>background</key>
           <string>#24292e</string>
+          <!-- 配布元は #f6f8fa。端末の背景は想定より暗い濃紺のため、ほぼ白の
+               この値では 19.3:1 まで上がって浮く。ghostty の foreground と
+               同じ値にして、色を持たない文字と明るさを揃える（13.5:1） -->
           <key>foreground</key>
-          <string>#f6f8fa</string>
+          <string>#cad2e1</string>
           <key>lineHighlight</key>
           <string>#444d56</string>
           <key>invisibles</key>
@@ -413,7 +416,7 @@
                中身すべてに掛かるため、箇条書きの多い文書が一面オレンジに
                なる。中身は本文なので、本文と同じ色にする -->
           <key>foreground</key>
-          <string>#f6f8fa</string>
+          <string>#cad2e1</string>
         </dict>
         <key>name</key>
         <string>Markup.list</string>
