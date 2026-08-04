@@ -18,9 +18,13 @@ fi
 
 
 ### bat ###
-# 設定「ファイル」を指す。ディレクトリを渡すと黙って読み飛ばされ、
-# テーマの指定が効かない（既定の Monokai のままになる）
-export BAT_CONFIG_PATH="$XDG_CONFIG_HOME/bat/config"
+# BAT_CONFIG_PATH は設定しない。bat は既定で $XDG_CONFIG_HOME/bat/config を
+# 見るため不要な上、値がずれた時の影響が大きい。
+#
+# 以前はディレクトリを指していた。bat はそれをファイルとして開こうとして
+# 黙って失敗するため設定が読まれず、テーマが既定の Monokai のままだった。
+# さらに tmux はサーバ起動時の環境を抱え込んでポップアップに渡すので、
+# シェル側を直しても fzf のプレビューだけ古い値で動き続けていた。
 export MANPAGER="sh -c 'col -bx | bat --color=always --language=man --plain'"
 
 ### ripgrep ###
