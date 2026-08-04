@@ -18,7 +18,9 @@ fi
 
 
 ### bat ###
-export BAT_CONFIG_PATH="$XDG_CONFIG_HOME/bat"
+# 設定「ファイル」を指す。ディレクトリを渡すと黙って読み飛ばされ、
+# テーマの指定が効かない（既定の Monokai のままになる）
+export BAT_CONFIG_PATH="$XDG_CONFIG_HOME/bat/config"
 export MANPAGER="sh -c 'col -bx | bat --color=always --language=man --plain'"
 
 ### ripgrep ###
