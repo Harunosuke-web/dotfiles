@@ -409,8 +409,11 @@
         <string>markup.list</string>
         <key>settings</key>
         <dict>
+          <!-- 配布元は #fb8532。このスコープは記号だけでなく箇条書きの
+               中身すべてに掛かるため、箇条書きの多い文書が一面オレンジに
+               なる。中身は本文なので、本文と同じ色にする -->
           <key>foreground</key>
-          <string>#fb8532</string>
+          <string>#f6f8fa</string>
         </dict>
         <key>name</key>
         <string>Markup.list</string>
@@ -422,8 +425,10 @@
         <dict>
           <key>fontStyle</key>
           <string>bold</string>
+          <!-- 配布元は #0366d6。白背景で使う青で、暗い背景では 2.7:1 しか
+               出ずテーマ内で最も読みにくい。文字列に使われている青に揃える -->
           <key>foreground</key>
-          <string>#0366d6</string>
+          <string>#79b8ff</string>
         </dict>
         <key>name</key>
         <string>Markup.heading</string>
