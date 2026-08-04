@@ -20,6 +20,19 @@ export FZF_TMUX=1
 # export FZF_DEFAULT_COMMAND='fd --hidden --color=always'
 export FZF_DEFAULT_COMMAND="rg --files --hidden -g '!.git/*' -g '!node_modules/*'"
 
+### --- 配色 --- ###
+# 指定しないと fzf は端末の 16 色を使う。ghostty の palette は Alacritty から
+# 移植したもので純緑 #00ff00 などが入っており、プレビュー（bat の GitHub Dark）
+# と系統が合わない。テーマ側の値を拾って揃える。
+#
+# bg は指定しない（-1 = 端末の背景のまま）。tmux のポップアップは端末の
+# 背景色がそのまま出るので、ペインとの区別がここで生まれる。
+__FZF_COLORS="--color=fg:#959da5,bg:-1,hl:#79b8ff"
+__FZF_COLORS+=",fg+:#f6f8fa,bg+:#2f363d,hl+:#79b8ff"
+__FZF_COLORS+=",info:#959da5,prompt:#79b8ff,pointer:#ea4a5a"
+__FZF_COLORS+=",marker:#7bcc72,spinner:#b392f0,header:#959da5"
+__FZF_COLORS+=",border:#444d56,preview-bg:-1"
+
 ### --- FZF_TMUX_OPTS, FZF_DEFAULT_OPTS --- ###
 if [[ -n ${TMUX-} ]]; then
     __FZF_CMD="fzf-tmux"
@@ -38,6 +51,7 @@ if [[ -n ${TMUX-} ]]; then
 EOF
     ) \
         --layout=reverse --border --ansi \
+        $__FZF_COLORS \
         --preview-window 'right,50%,nowrap' \
         --header 'Ctrl-\: Toggle Preview | Ctrl-P/N: Page Up/Down' \
         --bind 'Ctrl-\:toggle-preview' \
@@ -63,6 +77,7 @@ else
 EOF
     ) \
                 --height 100% --layout=reverse --border --ansi \
+                $__FZF_COLORS \
                 --preview-window 'right,50%,nowrap' \
                 --header 'Ctrl-\: Toggle Preview | Ctrl-P/N: Page Up/Down' \
                 --bind 'ctrl-\:change-preview-window(hidden|)' \
