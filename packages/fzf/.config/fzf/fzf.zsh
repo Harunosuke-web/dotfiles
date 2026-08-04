@@ -33,6 +33,16 @@ __FZF_COLORS+=",info:#959da5,prompt:#79b8ff,pointer:#ea4a5a"
 __FZF_COLORS+=",marker:#7bcc72,spinner:#b392f0,header:#959da5"
 __FZF_COLORS+=",border:#444d56,preview-bg:-1"
 
+### --- キー割り当ての方針 --- ###
+# ctrl-n/p は候補の選択移動（fzf の既定）のまま触らない。Vim で
+# <C-n>/<C-p> が補完候補の next/previous であること、nvim 側の fzf-lua も
+# 既定のままであることと揃う。以前はここでプレビューのページ送りに
+# 潰しており、FZF_DEFAULT_OPTS が nvim にも漏れて fzf-lua で候補を
+# 動かせなくなる事故が起きた。
+#
+# プレビューのページ送りは ctrl-u/d。Vim の半ページスクロールと同じで、
+# nvim の fzf-lua（lua/plugins/finder.lua）でも同じキーにしてある。
+
 ### --- FZF_TMUX_OPTS, FZF_DEFAULT_OPTS --- ###
 if [[ -n ${TMUX-} ]]; then
     __FZF_CMD="fzf-tmux"
@@ -53,9 +63,9 @@ EOF
         --layout=reverse --border --ansi \
         $__FZF_COLORS \
         --preview-window 'right,50%,nowrap' \
-        --header 'Ctrl-\: Toggle Preview | Ctrl-P/N: Page Up/Down' \
+        --header 'Ctrl-\: Toggle Preview | Ctrl-U/D: Page Up/Down' \
         --bind 'Ctrl-\:toggle-preview' \
-        --bind 'ctrl-p:preview-half-page-up,ctrl-n:preview-half-page-down'"
+        --bind 'ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down'"
 
     # export FZF_TMUX_OPTS="-p 90% -y45"
     # 幅・高さの両方を指定して中央90%で表示（幅だけ指定だと高さが半端で上寄りになる）。
@@ -79,9 +89,9 @@ EOF
                 --height 100% --layout=reverse --border --ansi \
                 $__FZF_COLORS \
                 --preview-window 'right,50%,nowrap' \
-                --header 'Ctrl-\: Toggle Preview | Ctrl-P/N: Page Up/Down' \
+                --header 'Ctrl-\: Toggle Preview | Ctrl-U/D: Page Up/Down' \
                 --bind 'ctrl-\:change-preview-window(hidden|)' \
-                --bind 'ctrl-p:preview-half-page-up,ctrl-n:preview-half-page-down'"
+                --bind 'ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down'"
 fi
 
 ### --- alias --- ###
