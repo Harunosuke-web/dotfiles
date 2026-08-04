@@ -83,8 +83,9 @@ __navi_search() {
     if [[ -n "$TMUX" ]]; then
         local tmpfile
         tmpfile="$(mktemp)"
-        # popupはPATHを引き継がないことがあるためnaviの絶対パスを渡す
-        tmux display-popup -w 100% -h 100% -E \
+        # popupはPATHを引き継がないことがあるためnaviの絶対パスを渡す。
+        # 選んで消えるものなので中央に 90%（packages/tmux/bin/tmux-popup）
+        ~/.local/bin/tmux-popup center \
             "${commands[navi]} --print --fzf-overrides '--with-nth 2,3,1' --query=${(qq)LBUFFER} > ${(qq)tmpfile}"
         result="$(<"$tmpfile")"
         command rm -f -- "$tmpfile"
